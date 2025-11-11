@@ -1,0 +1,34 @@
+===============================================
+Git 便携版 - 快速设置指南
+===============================================
+
+Git 已安装到: git-portable 目录
+
+【解决方案】在 PowerShell 中使用 Git：
+
+方法 1（推荐）- 在 PowerShell 中运行以下命令：
+
+    . .\use_git.ps1
+
+然后就可以使用 git 命令了：
+    git init
+    git --version
+
+方法 2 - 如果方法1不工作，手动运行：
+
+    $gitBin = Join-Path (Get-Location) "git-portable\bin"
+    $gitCmd = Join-Path (Get-Location) "git-portable\cmd"
+    $env:PATH = $env:PATH + ";" + $gitBin + ";" + $gitCmd
+    git --version
+
+方法 3 - 使用完整路径：
+
+    .\git-portable\bin\git.exe init
+
+===============================================
+注意：方法1和2只在当前 PowerShell 会话中有效。
+如果关闭 PowerShell 后重新打开，需要重新运行。
+
+要永久添加，请查看 GIT_使用说明.md
+===============================================
+
