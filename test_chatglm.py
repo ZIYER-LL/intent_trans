@@ -1,21 +1,21 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
+import sys
+sys.path.append("/root/autodl-tmp/chatglm-6b")  # 确保 Python 能 import 源码
+
+from tokenization_chatglm import ChatGLMTokenizer
+from modeling_chatglm import ChatGLMForConditionalGeneration
 import torch
 
-print("🚀 开始加载模型...")
+model_path = "/root/autodl-tmp/chatglm-6b"
 
-try:
-    model_name = "THUDM/chatglm-6b"
-    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
-    model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)
-    model = model.half().cuda()
-    model.eval()
-    print("✅ 模型加载成功！")
+# 加载 tokenizer 和模型
+tokenizer = ChatGLMTokenizer.from_pretrained(model_path)
+model = ChatGLMForConditionalGeneration.from_pretrained(model_path).half().cuda()
+model.eval()
 
-    prompt = "帮我写一条提醒：明天上午九点开会"
-    inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
-    with torch.no_grad():
-        output = model.generate(**inputs, max_new_tokens=100)
-    print("输出：", tokenizer.decode(output[0], skip_special_tokens=True))
+prompt = "帮我写一条提醒：明天上午九点开会"
+inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
 
-except Exception as e:
-    print("❌ 出错了：", e)
+with torch.no_grad():
+    outputs = model.generate(**inputs, max_new_tokens=100)
+
+print(tokenizer.decode(outputs[0], skip_special_tokens=True))
