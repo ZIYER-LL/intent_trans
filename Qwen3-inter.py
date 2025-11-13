@@ -17,17 +17,13 @@ def load_model(model_dir=DEFAULT_MODEL_DIR, use_8bit=USE_8BIT):
     """加载本地模型和 tokenizer，返回 (tokenizer, model, device, dtype)"""
     print(f"Loading model from: {model_dir}")
 
-    # 选择 device
     device = torch.device(f"cuda:{GPU_IDX}" if torch.cuda.is_available() else "cpu")
     print("Using device:", device)
 
-    # 目标 dtype
     dtype = torch.float16 if torch.cuda.is_available() and not use_8bit else torch.float32
 
-    # 本地加载 tokenizer
     tokenizer = AutoTokenizer.from_pretrained(model_dir, local_files_only=True)
 
-    # 本地加载模型
     if use_8bit:
         model = AutoModelForCausalLM.from_pretrained(
             model_dir,
@@ -46,15 +42,39 @@ def load_model(model_dir=DEFAULT_MODEL_DIR, use_8bit=USE_8BIT):
     model.eval()
     return tokenizer, model, device, dtype
 
+def clean_input(text: str) -> str:
+    """清理中文输入，替换全角符号，去掉不可打印字符"""
+    replacements = {
+        "，": ",",
+        "。": ".",
+        "：": ":",
+        "；": ";",
+        "“": '"',
+        "”": '"',
+        "‘": "'",
+        "’": "'",
+        "！": "!",
+        "？": "?",
+        "（": "(",
+        "）": ")",
+        "【": "[",
+        "】": "]",
+        "　": " ",  # 全角空格
+    }
+    for k, v in replacements.items():
+        text = text.replace(k, v)
+    # 去掉不可打印字符
+    text = "".join(c for c in text if c.isprintable())
+    # 确保 UTF-8 编码安全
+    return text.encode("utf-8", errors="ignore").decode("utf-8")
+
 def infer(model, tokenizer, prompt, device, dtype, history=None):
     """生成文本。history 为多轮上下文，可选"""
-    # 拼接多轮上下文
     if history:
         full_prompt = "\n".join(history + [prompt])
     else:
         full_prompt = prompt
 
-    # 如果开启 JSON 模式，包装 prompt
     if JSON_MODE:
         full_prompt = (
             f"你是一个网络配置工程师，请根据以下指令生成结构化 JSON，"
@@ -62,11 +82,9 @@ def infer(model, tokenizer, prompt, device, dtype, history=None):
             f"不要输出多余文字，只输出 JSON。\n指令：{full_prompt}"
         )
 
-    # tokenizer 返回的 tensor 放到 device
     inputs = tokenizer(full_prompt, return_tensors="pt")
     inputs = {k: v.to(device) for k, v in inputs.items()}
 
-    # GPU + fp16 时开启 autocast
     use_autocast = (device.type == "cuda" and dtype == torch.float16)
     with torch.inference_mode():
         if use_autocast:
@@ -95,17 +113,12 @@ def main():
     print("=== Qwen3-4B 本地交互推理（GPU + JSON模式） ===")
     tokenizer, model, device, dtype = load_model(USE_8BIT and DEFAULT_MODEL_DIR or DEFAULT_MODEL_DIR, USE_8BIT)
 
-    history = []  # 多轮历史上下文
+    history = []
 
     while True:
         try:
-            try:
-                prompt = input("\n请输入指令（输入 exit 退出）：\n> ")
-                # 自动清理非法 UTF-8 字符，去掉全角空格
-                prompt = prompt.encode("utf-8", errors="ignore").decode("utf-8").replace("　", " ")
-            except UnicodeDecodeError:
-                print("输入含有非法字符，请重新输入。")
-                continue
+            prompt = input("\n请输入指令（输入 exit 退出）：\n> ")
+            prompt = clean_input(prompt)
 
             if prompt.strip().lower() in ["exit", "quit"]:
                 print("退出推理.")
@@ -114,13 +127,15 @@ def main():
             output = infer(model, tokenizer, prompt, device, dtype, history)
             print("\n>>> 模型输出:\n", output)
 
-            # 保存多轮历史
             history.append(prompt)
             history.append(output)
         except KeyboardInterrupt:
             print("\n退出推理.")
             break
+        except Exception as e:
+            print(f"推理出现异常: {e}")
 
 if __name__ == "__main__":
     main()
+
 
