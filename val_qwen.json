@@ -1,0 +1,3962 @@
+[
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我要参与直播互动，延迟一定要低一点，最好在 212ms 内，不然评论会跟不上节奏。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"低抖动，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 212, \"jitter_target_ms\": 4, \"bandwidth_kbps\": 3385, \"priority\": 4, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "发布短视频要快速上传并显示正常"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"社交媒体\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 140, \"jitter_target_ms\": 8, \"bandwidth_kbps\": 3416, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "短视频加载速度要快，带宽保持 5115kbps 左右比较稳。抖动低于 50ms 就不会花屏。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"高带宽，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 301, \"jitter_target_ms\": 50, \"bandwidth_kbps\": 5115, \"priority\": 4, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "回放或切换清晰度时不要卡顿"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 137, \"jitter_target_ms\": 26, \"bandwidth_kbps\": 2287, \"priority\": 5, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我需要游戏语音，延迟在71ms以内，抖动不超过2ms。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"游戏语音\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 71, \"jitter_target_ms\": 2, \"packet_loss_rate\": 0.0047, \"bandwidth_kbps\": 51, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想开个视频会，延迟低一点、抖动小一点，54ms 和 5ms 以内就最好。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 54, \"jitter_target_ms\": 5, \"packet_loss_rate\": 0.0096, \"bandwidth_kbps\": 1588, \"priority\": 2, \"reliability\": 0.999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "开一通游戏语音，时延控制在58ms以内，不卡顿。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"游戏语音\", \"user_intent\": \"低时延，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 58, \"jitter_target_ms\": 18, \"packet_loss_rate\": 0.0037, \"bandwidth_kbps\": 18, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "PLC信号传输要连续，保证生产安全"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 13, \"bandwidth_kbps\": 461, \"priority\": 1, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "PLC信号传输要连续，保证生产安全"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 53, \"bandwidth_kbps\": 30, \"priority\": 2, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "网页滚动顺滑，不希望卡顿或白屏"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 145, \"jitter_target_ms\": 9, \"bandwidth_kbps\": 2706, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "多人互动时消息更新要快速，不要卡在原地"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 226, \"jitter_target_ms\": 11, \"bandwidth_kbps\": 2744, \"priority\": 4, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "机器人状态显示要实时更新，不滞后"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"机器人控制\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 83, \"bandwidth_kbps\": 270, \"priority\": 1, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "拨打VoIP电话时延迟稳定，抖动最小。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoIP\", \"user_intent\": \"低时延，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 69, \"jitter_target_ms\": 10, \"packet_loss_rate\": 0.001, \"bandwidth_kbps\": 45, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "加载网页不要卡，延迟和抖动最好在 146ms / 25ms 内。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 146, \"jitter_target_ms\": 25, \"bandwidth_kbps\": 4813, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "VoIP语音交互希望零卡顿，延迟最低。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoIP\", \"user_intent\": \"低时延，高优先级\"}, \"policy\": {\"latency_target_ms\": 51, \"jitter_target_ms\": 17, \"packet_loss_rate\": 0.008, \"bandwidth_kbps\": 42, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "聊天发送图片要快些，带宽在 4797kbps 左右就够。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"即时聊天\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 122, \"jitter_target_ms\": 11, \"bandwidth_kbps\": 4797, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "同时大量玩家交互时，请保证网络带宽与可靠性，丢包率控制在 3.94% 以下。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"多人交互\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠，高分辨率，高帧率\"}, \"policy\": {\"latency_target_ms\": 40, \"jitter_target_ms\": 12, \"packet_loss_rate\": 0.0394, \"bandwidth_kbps\": 12847, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"1080p\", \"frame_rate\": 90}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "点击视频要马上播放，不要延迟好几秒。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"高带宽，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 387, \"jitter_target_ms\": 35, \"bandwidth_kbps\": 5183, \"priority\": 5, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我要参与直播互动，延迟一定要低一点，最好在 235ms 内，不然评论会跟不上节奏。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"高优先级\"}, \"policy\": {\"latency_target_ms\": 235, \"jitter_target_ms\": 17, \"bandwidth_kbps\": 4644, \"priority\": 3, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "教学视频流畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"在线课堂\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 68, \"jitter_target_ms\": 7, \"packet_loss_rate\": 0.009, \"bandwidth_kbps\": 1226, \"priority\": 2, \"reliability\": 0.999, \"resolution\": \"720p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "视频和声音要同步"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，低抖动，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 66, \"jitter_target_ms\": 3, \"packet_loss_rate\": 0.0059, \"bandwidth_kbps\": 1129, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "云端存储不中断"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1267, \"jitter_target_ms\": 15, \"bandwidth_kbps\": 13216, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "云端操控别有卡顿，抖动控制在 16ms 内，输入响应要稳定。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 31, \"jitter_target_ms\": 16, \"packet_loss_rate\": 0.0075, \"bandwidth_kbps\": 5546, \"priority\": 3, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 60}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "为云游戏预留大约 7364kbps 带宽，画面与音频要保持同步且清晰。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高分辨率，高帧率\"}, \"policy\": {\"latency_target_ms\": 33, \"jitter_target_ms\": 9, \"packet_loss_rate\": 0.0277, \"bandwidth_kbps\": 7364, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"1080p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "图片和文字要及时加载，体验顺畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低时延，低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 53, \"jitter_target_ms\": 5, \"bandwidth_kbps\": 6200, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "网页翻页要快速，操作不等待"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低时延，低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 66, \"jitter_target_ms\": 0, \"bandwidth_kbps\": 7369, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "弹幕发送后要马上显示，不能延迟太久"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 265, \"jitter_target_ms\": 5, \"bandwidth_kbps\": 5496, \"priority\": 4, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "动作反馈及时"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"VR_AR_协作\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 31, \"jitter_target_ms\": 15, \"packet_loss_rate\": 0.0281, \"bandwidth_kbps\": 9566, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 90}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "和主播实时互动时，抖动控制在 1ms 以内特别重要。清晰度保持 480p，带宽大概 3090kbps 才够用。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 145, \"jitter_target_ms\": 1, \"bandwidth_kbps\": 3090, \"priority\": 5, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想顺畅下载资料，网络得有 19522kbps 的带宽。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件下载\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1445, \"jitter_target_ms\": 23, \"bandwidth_kbps\": 19522, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "机械臂操作指令要稳定传输，不卡顿"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"机器人控制\", \"user_intent\": \"低时延，高可靠，低优先级\"}, \"policy\": {\"latency_target_ms\": 67, \"bandwidth_kbps\": 459, \"priority\": 4, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "VoIP通话要实时，延迟越小越顺畅。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoIP\", \"user_intent\": \"低时延，高优先级\"}, \"policy\": {\"latency_target_ms\": 50, \"jitter_target_ms\": 11, \"packet_loss_rate\": 0.0056, \"bandwidth_kbps\": 22, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我希望VoIP电话延迟小于70ms，抖动控制在20ms。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoIP\", \"user_intent\": \"低时延，高优先级\"}, \"policy\": {\"latency_target_ms\": 70, \"jitter_target_ms\": 20, \"packet_loss_rate\": 0.0071, \"bandwidth_kbps\": 20, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "急救语音通话需要毫秒级响应，延迟最低。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 57, \"jitter_target_ms\": 19, \"packet_loss_rate\": 0.0012, \"bandwidth_kbps\": 49, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "视频会议抖动别超过 2ms，不然画面容易一卡一卡的。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，低抖动，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 73, \"jitter_target_ms\": 2, \"packet_loss_rate\": 0.0089, \"bandwidth_kbps\": 1492, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"4K\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "PLC信号传输要连续，保证生产安全"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"高可靠，低优先级\"}, \"policy\": {\"latency_target_ms\": 91, \"bandwidth_kbps\": 484, \"priority\": 4, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "控制指令上传必须稳，可靠性得保持在 0.99999。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"机器人控制\", \"user_intent\": \"高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 94, \"bandwidth_kbps\": 19, \"priority\": 3, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "网页滚动顺滑，不希望卡顿或白屏"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 94, \"jitter_target_ms\": 27, \"bandwidth_kbps\": 4821, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "PLC 数据上传要保证稳定性，链路可靠性保持在 0.99999。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 77, \"bandwidth_kbps\": 37, \"priority\": 1, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "访问新闻网站时延迟要低，流畅阅读"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 121, \"jitter_target_ms\": 15, \"bandwidth_kbps\": 4695, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我要一通5G新通话，时延在76ms以内，抖动低于7ms。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoNR\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 76, \"jitter_target_ms\": 7, \"packet_loss_rate\": 0.0073, \"bandwidth_kbps\": 41, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "网页加载快一点，延迟控制在 138ms 左右。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 138, \"jitter_target_ms\": 30, \"bandwidth_kbps\": 2613, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "机器人上报数据的带宽控制在 41kbps 就够了，只要稳定。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"机器人控制\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 11, \"bandwidth_kbps\": 41, \"priority\": 1, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "短视频滑动速度快，需要低延迟（约 332ms）和低抖动（23ms）。带宽最好保持在 2753kbps。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 332, \"jitter_target_ms\": 23, \"bandwidth_kbps\": 2753, \"priority\": 5, \"resolution\": \"4K\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "开会画面别掉帧"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，低抖动，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 75, \"jitter_target_ms\": 5, \"packet_loss_rate\": 0.0083, \"bandwidth_kbps\": 2875, \"priority\": 4, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "远程医疗视频稳定"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 74, \"jitter_target_ms\": 5, \"packet_loss_rate\": 0.0047, \"bandwidth_kbps\": 2690, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想看高清短视频，分辨率达到 4K。为了避免卡顿，带宽要有 6769kbps，抖动最好很小（8ms）。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"低抖动，高带宽，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 327, \"jitter_target_ms\": 8, \"bandwidth_kbps\": 6769, \"priority\": 4, \"resolution\": \"4K\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "加载网页不要卡，延迟和抖动最好在 85ms / 27ms 内。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低时延，低优先级\"}, \"policy\": {\"latency_target_ms\": 85, \"jitter_target_ms\": 27, \"bandwidth_kbps\": 4183, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "高清点播要持续清晰，不要忽然变糊。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"点播系统\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 333, \"jitter_target_ms\": 8, \"bandwidth_kbps\": 3767, \"priority\": 4, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "虚拟场景中需保证高分辨率和低延迟，带宽约为 10601kbps，画质细节不能丢失。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"VR_AR_协作\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 21, \"jitter_target_ms\": 13, \"packet_loss_rate\": 0.0278, \"bandwidth_kbps\": 10601, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "带宽要至少 1439kbps，保证视频足够清晰。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 57, \"jitter_target_ms\": 4, \"packet_loss_rate\": 0.0064, \"bandwidth_kbps\": 1439, \"priority\": 4, \"reliability\": 0.999, \"resolution\": \"720p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "直播间互动需要很及时，网络延迟最好别超过 153ms，不然发条评论要半天才出现。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 153, \"jitter_target_ms\": 28, \"bandwidth_kbps\": 4741, \"priority\": 5, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "教学视频流畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"在线课堂\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 59, \"jitter_target_ms\": 3, \"packet_loss_rate\": 0.0042, \"bandwidth_kbps\": 2825, \"priority\": 2, \"reliability\": 0.999, \"resolution\": \"4K\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "紧急通信必须立即传输，保证最快响应。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 57, \"jitter_target_ms\": 12, \"packet_loss_rate\": 0.0024, \"bandwidth_kbps\": 16, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "请保证急救电话通话稳定，丢包率不超过0.36%。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 98, \"jitter_target_ms\": 2, \"packet_loss_rate\": 0.0036, \"bandwidth_kbps\": 42, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "访问页面时文字和视频要同时显示正常"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低时延，低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 71, \"jitter_target_ms\": 1, \"bandwidth_kbps\": 3655, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "上传速度要稳定点，带宽至少得有 2886kbps。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 917, \"jitter_target_ms\": 13, \"bandwidth_kbps\": 2886, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我要拨打急救电话，延迟最好在86ms以内。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，高优先级\"}, \"policy\": {\"latency_target_ms\": 86, \"jitter_target_ms\": 14, \"packet_loss_rate\": 0.0071, \"bandwidth_kbps\": 26, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "看直播的时候画面别抖，抖动控制在 24ms 内，清晰度保持 720p，体验才好。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"高优先级\"}, \"policy\": {\"latency_target_ms\": 129, \"jitter_target_ms\": 24, \"bandwidth_kbps\": 4680, \"priority\": 3, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "连麦时画面要稳定，不要突然断开"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"低抖动，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 207, \"jitter_target_ms\": 3, \"bandwidth_kbps\": 2070, \"priority\": 3, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "丢包率保持在 0.20% 以下，诊疗画面才能稳定。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，少丢包，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 65, \"jitter_target_ms\": 5, \"packet_loss_rate\": 0.002, \"bandwidth_kbps\": 2255, \"priority\": 4, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "点播电视剧时希望首屏加载快一点，延迟控制在 234ms 左右，带宽最好达到 3483kbps 才能稳定输出 1080p。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"点播系统\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 234, \"jitter_target_ms\": 47, \"bandwidth_kbps\": 3483, \"priority\": 5, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "病人画面要清晰"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 54, \"jitter_target_ms\": 9, \"packet_loss_rate\": 0.0007, \"bandwidth_kbps\": 2544, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想顺畅下载资料，网络得有 6691kbps 的带宽。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件下载\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 745, \"jitter_target_ms\": 10, \"bandwidth_kbps\": 6691, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "数据自动备份及时"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 898, \"jitter_target_ms\": 15, \"bandwidth_kbps\": 16140, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "观看时视频清晰稳定，不要突然糊掉"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 294, \"jitter_target_ms\": 28, \"bandwidth_kbps\": 4806, \"priority\": 5, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "带宽保持在44kbps，5G语音质量要清晰。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoNR\", \"user_intent\": \"少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 91, \"jitter_target_ms\": 10, \"packet_loss_rate\": 0.0017, \"bandwidth_kbps\": 44, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "控制机器人动作要立即生效，不延迟"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"机器人控制\", \"user_intent\": \"低时延，高可靠，低优先级\"}, \"policy\": {\"latency_target_ms\": 26, \"bandwidth_kbps\": 25, \"priority\": 4, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "文件下载延迟别太高，尽量控制在 528ms。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件下载\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 528, \"jitter_target_ms\": 1, \"bandwidth_kbps\": 9849, \"priority\": 7, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "至少需要 1454kbps 才能保证高清诊断画面稳定传输。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 78, \"jitter_target_ms\": 2, \"packet_loss_rate\": 0.0085, \"bandwidth_kbps\": 1454, \"priority\": 2, \"reliability\": 0.999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "急救电话抖动要小于12ms，语音连贯。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 86, \"jitter_target_ms\": 12, \"packet_loss_rate\": 0.0029, \"bandwidth_kbps\": 26, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "点开视频后要马上能播放，别让我等半天。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"点播系统\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 380, \"jitter_target_ms\": 25, \"bandwidth_kbps\": 4605, \"priority\": 6, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "VoIP网络带宽维持在22kbps，音质清晰。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoIP\", \"user_intent\": \"低时延，高优先级\"}, \"policy\": {\"latency_target_ms\": 89, \"jitter_target_ms\": 19, \"packet_loss_rate\": 0.005, \"bandwidth_kbps\": 22, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "网页加载快一点，延迟控制在 57ms 左右。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低时延，低优先级\"}, \"policy\": {\"latency_target_ms\": 57, \"jitter_target_ms\": 12, \"bandwidth_kbps\": 3502, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "机器人路径调整要快速响应，不出错"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"机器人控制\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 42, \"bandwidth_kbps\": 144, \"priority\": 2, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "游戏画质要高"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高分辨率\"}, \"policy\": {\"latency_target_ms\": 39, \"jitter_target_ms\": 9, \"packet_loss_rate\": 0.0156, \"bandwidth_kbps\": 17983, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"1080p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "多人同屏互动时带宽要稳定（约 6166kbps），避免画面卡顿和音画不同步。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"多人交互\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 35, \"jitter_target_ms\": 5, \"packet_loss_rate\": 0.0135, \"bandwidth_kbps\": 6166, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "和主播互动消息要及时发出去，不要延后一大截"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 289, \"jitter_target_ms\": 8, \"bandwidth_kbps\": 4380, \"priority\": 5, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "画面不要掉帧"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"VR_AR_协作\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 35, \"jitter_target_ms\": 17, \"packet_loss_rate\": 0.0115, \"bandwidth_kbps\": 5270, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "互动直播反应要快，延迟在 148ms 左右比较理想，带宽保证 5328kbps，让画面和发言都同步。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 148, \"jitter_target_ms\": 20, \"bandwidth_kbps\": 5328, \"priority\": 5, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想流畅看电影，画质最好达到 4K，带宽维持在 4810kbps 才够稳定。延迟别超过 280ms，不然加载会慢。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"电影\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 280, \"jitter_target_ms\": 27, \"bandwidth_kbps\": 4810, \"priority\": 4, \"resolution\": \"4K\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "视频预览要快速，不要点半天反应不过来。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 344, \"jitter_target_ms\": 41, \"bandwidth_kbps\": 3496, \"priority\": 4, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "上传文件别老卡住，延迟控制在 517ms 内就稳了。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 517, \"jitter_target_ms\": 30, \"bandwidth_kbps\": 12547, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "和主播实时互动时，抖动控制在 7ms 以内特别重要。清晰度保持 720p，带宽大概 4468kbps 才够用。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 294, \"jitter_target_ms\": 7, \"bandwidth_kbps\": 4468, \"priority\": 5, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "开会画面别掉帧"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 72, \"jitter_target_ms\": 8, \"packet_loss_rate\": 0.0048, \"bandwidth_kbps\": 1871, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"720p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "PLC 数据同步延迟要低，最好在 68ms 以内。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 68, \"bandwidth_kbps\": 336, \"priority\": 1, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "文字聊天希望延迟低，及时看到回复"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"即时聊天\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 110, \"jitter_target_ms\": 9, \"bandwidth_kbps\": 2589, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "数据自动备份及时"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 1568, \"jitter_target_ms\": 1, \"bandwidth_kbps\": 2768, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "连线要稳定"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 32, \"jitter_target_ms\": 20, \"packet_loss_rate\": 0.0161, \"bandwidth_kbps\": 10845, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "控制机器人动作要立即生效，不延迟"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"机器人控制\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 46, \"bandwidth_kbps\": 314, \"priority\": 3, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "看电影时希望一次加载充分，网络带宽大概保持在 3307kbps。延迟控制在 447ms 内体验更好。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"电影\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 447, \"jitter_target_ms\": 26, \"bandwidth_kbps\": 3307, \"priority\": 6, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "高分辨率电影要流畅播放，不要掉帧。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"电影\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 411, \"jitter_target_ms\": 32, \"bandwidth_kbps\": 1597, \"priority\": 4, \"resolution\": \"4K\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "指令下发和执行同步，保证操作连贯"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"机器人控制\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 88, \"bandwidth_kbps\": 267, \"priority\": 2, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "大文件下载稳定"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件下载\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1171, \"jitter_target_ms\": 7, \"bandwidth_kbps\": 8827, \"priority\": 7, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "浏览社交内容延迟低，体验更顺畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"社交媒体\", \"user_intent\": \"低时延，低优先级\"}, \"policy\": {\"latency_target_ms\": 54, \"jitter_target_ms\": 17, \"bandwidth_kbps\": 2921, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "上传文件别老卡住，延迟控制在 1858ms 内就稳了。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1858, \"jitter_target_ms\": 24, \"bandwidth_kbps\": 12163, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "咨询时不卡顿"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 53, \"jitter_target_ms\": 5, \"packet_loss_rate\": 0.0075, \"bandwidth_kbps\": 2740, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "开一通游戏语音，时延控制在71ms以内，不卡顿。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"游戏语音\", \"user_intent\": \"低时延，高优先级\"}, \"policy\": {\"latency_target_ms\": 71, \"jitter_target_ms\": 19, \"packet_loss_rate\": 0.0051, \"bandwidth_kbps\": 36, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "车辆运行信息上报要连续稳定"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 46, \"bandwidth_kbps\": 467, \"priority\": 1, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "网页带宽保持在 9944kbps，上大图才顺畅。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 141, \"jitter_target_ms\": 28, \"bandwidth_kbps\": 9944, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "画面流畅不卡"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 36, \"jitter_target_ms\": 6, \"packet_loss_rate\": 0.0069, \"bandwidth_kbps\": 17346, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "急救电话抖动要小于6ms，语音连贯。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 61, \"jitter_target_ms\": 6, \"packet_loss_rate\": 0.0081, \"bandwidth_kbps\": 21, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "在点播系统里拖动进度条时，希望抖动低于 39ms，这样画面出现更快。优先级至少要 6。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"点播系统\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 466, \"jitter_target_ms\": 39, \"bandwidth_kbps\": 1735, \"priority\": 6, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "点赞和礼物动画要即时反馈，不要卡在半路"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 117, \"jitter_target_ms\": 17, \"bandwidth_kbps\": 3294, \"priority\": 4, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "跳剧集或切换片段要流畅，不能卡在切换画面。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"点播系统\", \"user_intent\": \"高带宽，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 245, \"jitter_target_ms\": 15, \"bandwidth_kbps\": 7514, \"priority\": 6, \"resolution\": \"4K\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "跳剧集或切换片段要流畅，不能卡在切换画面。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"点播系统\", \"user_intent\": \"高带宽，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 357, \"jitter_target_ms\": 26, \"bandwidth_kbps\": 6181, \"priority\": 5, \"resolution\": \"4K\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "远程诊疗的画面抖动不要超过 0ms，不然很影响观察细节。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 66, \"jitter_target_ms\": 0, \"packet_loss_rate\": 0.0031, \"bandwidth_kbps\": 1157, \"priority\": 2, \"reliability\": 0.999, \"resolution\": \"720p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "VoIP通话希望抖动低于11ms，不卡顿。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoIP\", \"user_intent\": \"低时延，高优先级\"}, \"policy\": {\"latency_target_ms\": 83, \"jitter_target_ms\": 11, \"packet_loss_rate\": 0.0081, \"bandwidth_kbps\": 34, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "带宽要至少 2013kbps，保证视频足够清晰。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"在线教育\", \"user_intent\": \"低时延，低抖动，少丢包，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 72, \"jitter_target_ms\": 7, \"packet_loss_rate\": 0.0007, \"bandwidth_kbps\": 2013, \"priority\": 4, \"reliability\": 0.999, \"resolution\": \"4K\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "同时大量玩家交互时，请保证网络带宽与可靠性，丢包率控制在 3.24% 以下。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"多人交互\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 27, \"jitter_target_ms\": 13, \"packet_loss_rate\": 0.0324, \"bandwidth_kbps\": 13674, \"priority\": 3, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "短视频切换要顺畅，不能一卡一卡的。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 363, \"jitter_target_ms\": 11, \"bandwidth_kbps\": 5842, \"priority\": 4, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "控制面板状态同步的延迟要稳在 32ms 左右。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 32, \"bandwidth_kbps\": 89, \"priority\": 2, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "急救电话带宽维持在49kbps，确保语音清晰。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 75, \"jitter_target_ms\": 7, \"packet_loss_rate\": 0.0044, \"bandwidth_kbps\": 49, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "VoIP语音交互希望零卡顿，延迟最低。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoIP\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 57, \"jitter_target_ms\": 6, \"packet_loss_rate\": 0.0005, \"bandwidth_kbps\": 60, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "在点播系统里拖动进度条时，希望抖动低于 42ms，这样画面出现更快。优先级至少要 6。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"点播系统\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 394, \"jitter_target_ms\": 42, \"bandwidth_kbps\": 1708, \"priority\": 6, \"resolution\": \"4K\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "打电话的时候不要有明显延迟。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoIP\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 52, \"jitter_target_ms\": 5, \"packet_loss_rate\": 0.0071, \"bandwidth_kbps\": 18, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想顺畅看一场直播，延迟不要太高，能在 157ms 内最好。画面希望维持在 480p，带宽要稳在 5682kbps。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 157, \"jitter_target_ms\": 6, \"bandwidth_kbps\": 5682, \"priority\": 4, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "希望语音消息快速送达，延迟尽量低。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoIP\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 51, \"jitter_target_ms\": 3, \"packet_loss_rate\": 0.0036, \"bandwidth_kbps\": 24, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "互动直播的特效加载要迅速，不影响流畅性"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 134, \"jitter_target_ms\": 16, \"bandwidth_kbps\": 4428, \"priority\": 3, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "短视频滑动速度快，需要低延迟（约 266ms）和低抖动（23ms）。带宽最好保持在 7834kbps。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 266, \"jitter_target_ms\": 23, \"bandwidth_kbps\": 7834, \"priority\": 6, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "长片播放要保持稳定，不能自动跳回或暂停。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"电影\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 370, \"jitter_target_ms\": 8, \"bandwidth_kbps\": 5340, \"priority\": 4, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "短视频滑动速度快，需要低延迟（约 366ms）和低抖动（19ms）。带宽最好保持在 7846kbps。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"高带宽，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 366, \"jitter_target_ms\": 19, \"bandwidth_kbps\": 7846, \"priority\": 5, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "视频动态加载要快，不要卡顿"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"社交媒体\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 95, \"jitter_target_ms\": 10, \"bandwidth_kbps\": 3600, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "游戏画质要高"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 38, \"jitter_target_ms\": 3, \"packet_loss_rate\": 0.0232, \"bandwidth_kbps\": 9433, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "切换清晰度时要顺畅，不要突然黑屏或卡顿。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"点播系统\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 237, \"jitter_target_ms\": 34, \"bandwidth_kbps\": 2612, \"priority\": 6, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "下载速度要高"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件下载\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1703, \"jitter_target_ms\": 24, \"bandwidth_kbps\": 9770, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "运输数据传输要稳定可靠，不丢失"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 37, \"bandwidth_kbps\": 174, \"priority\": 3, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "组队语音延迟要小，保证指挥即时响应。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"游戏语音\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 56, \"jitter_target_ms\": 6, \"packet_loss_rate\": 0.0094, \"bandwidth_kbps\": 44, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "车队调度的数据上行要稳，带宽保持在 28kbps 就行。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 27, \"bandwidth_kbps\": 28, \"priority\": 3, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "网络不要抖动太大，影响观看体验"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 111, \"jitter_target_ms\": 24, \"bandwidth_kbps\": 5587, \"priority\": 5, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "上传体验顺畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 914, \"jitter_target_ms\": 4, \"bandwidth_kbps\": 16511, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "短视频加载快一些，延迟控制在 63ms 内。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"社交媒体\", \"user_intent\": \"低时延，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 63, \"jitter_target_ms\": 19, \"bandwidth_kbps\": 8735, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "直播间多人投票需要即时反馈，交互延迟要控制在 23ms 以内。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"多人交互\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 23, \"jitter_target_ms\": 8, \"packet_loss_rate\": 0.0223, \"bandwidth_kbps\": 17010, \"priority\": 3, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 90}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "参与互动的时候画面不能糊，至少用到 480p。带宽保持在 2980kbps，抖动低于 16ms 才不会出现延迟和卡顿。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"高优先级\"}, \"policy\": {\"latency_target_ms\": 210, \"jitter_target_ms\": 16, \"bandwidth_kbps\": 2980, \"priority\": 3, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "多人语音聊天延迟要尽量低，不卡顿，反应要快。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"游戏语音\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 52, \"jitter_target_ms\": 0, \"packet_loss_rate\": 0.0003, \"bandwidth_kbps\": 30, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "AGV任务完成情况要快速反馈"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"低时延，高可靠，低优先级\"}, \"policy\": {\"latency_target_ms\": 17, \"bandwidth_kbps\": 226, \"priority\": 4, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "加载网页不要卡，延迟和抖动最好在 114ms / 14ms 内。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 114, \"jitter_target_ms\": 14, \"bandwidth_kbps\": 9798, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "网页滚动顺滑，不希望卡顿或白屏"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 96, \"jitter_target_ms\": 12, \"bandwidth_kbps\": 2962, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "视频会议抖动别超过 10ms，不然画面容易一卡一卡的。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，少丢包，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 54, \"jitter_target_ms\": 10, \"packet_loss_rate\": 0.0021, \"bandwidth_kbps\": 2337, \"priority\": 4, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "上网课别卡顿"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"在线课堂\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 62, \"jitter_target_ms\": 6, \"packet_loss_rate\": 0.0024, \"bandwidth_kbps\": 1343, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "网页翻页要快速，操作不等待"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低时延，低优先级\"}, \"policy\": {\"latency_target_ms\": 51, \"jitter_target_ms\": 25, \"bandwidth_kbps\": 4564, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "画面别延迟太久"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 72, \"jitter_target_ms\": 0, \"packet_loss_rate\": 0.0084, \"bandwidth_kbps\": 2309, \"priority\": 2, \"reliability\": 0.999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "视频会议的丢包率最好低于 0.27%，画面才不会糊。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，低抖动，少丢包，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 73, \"jitter_target_ms\": 6, \"packet_loss_rate\": 0.0027, \"bandwidth_kbps\": 1618, \"priority\": 4, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "电影开头要快速加载，不要让我等太久。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"电影\", \"user_intent\": \"高带宽，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 391, \"jitter_target_ms\": 36, \"bandwidth_kbps\": 6252, \"priority\": 6, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "云端操控别有卡顿，抖动控制在 4ms 内，输入响应要稳定。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高分辨率，高帧率\"}, \"policy\": {\"latency_target_ms\": 38, \"jitter_target_ms\": 4, \"packet_loss_rate\": 0.043, \"bandwidth_kbps\": 5636, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"1080p\", \"frame_rate\": 90}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "云备份需要稳定，可靠性起码得有 0.99。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 598, \"jitter_target_ms\": 2, \"bandwidth_kbps\": 17537, \"priority\": 7, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "参与者动作及时显示"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"多人交互\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高分辨率，高帧率\"}, \"policy\": {\"latency_target_ms\": 35, \"jitter_target_ms\": 8, \"packet_loss_rate\": 0.04, \"bandwidth_kbps\": 6953, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"1080p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "点播节目播放过程中要保持稳定，不要频繁暂停。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"点播系统\", \"user_intent\": \"低抖动，高带宽，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 473, \"jitter_target_ms\": 4, \"bandwidth_kbps\": 6504, \"priority\": 5, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我要把大文件传上去，网络最好稳一些，可靠性保持在 0.99。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1518, \"jitter_target_ms\": 21, \"bandwidth_kbps\": 9773, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "网络不要抖动太大，影响观看体验"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"高优先级\"}, \"policy\": {\"latency_target_ms\": 114, \"jitter_target_ms\": 26, \"bandwidth_kbps\": 4084, \"priority\": 3, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "跳剧集或切换片段要流畅，不能卡在切换画面。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"点播系统\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 374, \"jitter_target_ms\": 15, \"bandwidth_kbps\": 4233, \"priority\": 5, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "多台AGV同时上报时要互不干扰"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 43, \"bandwidth_kbps\": 224, \"priority\": 3, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "视频会议的丢包率最好低于 0.78%，画面才不会糊。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"在线教育\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 65, \"jitter_target_ms\": 1, \"packet_loss_rate\": 0.0078, \"bandwidth_kbps\": 1692, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "机器人状态显示要实时更新，不滞后"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"机器人控制\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 78, \"bandwidth_kbps\": 474, \"priority\": 3, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "打开网页要尽量快，不希望加载缓慢"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 136, \"jitter_target_ms\": 6, \"bandwidth_kbps\": 3813, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "教学视频流畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"在线课堂\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 63, \"jitter_target_ms\": 2, \"packet_loss_rate\": 0.0033, \"bandwidth_kbps\": 2936, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "云端存储不中断"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 1439, \"jitter_target_ms\": 2, \"bandwidth_kbps\": 3060, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "数据上传可靠"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 1865, \"jitter_target_ms\": 20, \"bandwidth_kbps\": 2338, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "直播不要频繁转圈，网络延迟控制在 142ms 内，抖动别超过 3ms，这样 1080p 画面才能一直清楚。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"低抖动，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 142, \"jitter_target_ms\": 3, \"bandwidth_kbps\": 3953, \"priority\": 5, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "拨打5G电话，延迟控制在最低。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoNR\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 53, \"jitter_target_ms\": 3, \"packet_loss_rate\": 0.0051, \"bandwidth_kbps\": 19, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "AGV运行监控信息要即时显示"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"低时延，高可靠，低优先级\"}, \"policy\": {\"latency_target_ms\": 89, \"bandwidth_kbps\": 429, \"priority\": 4, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "急救电话抖动要小于5ms，语音连贯。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 87, \"jitter_target_ms\": 5, \"packet_loss_rate\": 0.0098, \"bandwidth_kbps\": 33, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "上传文件要快"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 851, \"jitter_target_ms\": 5, \"bandwidth_kbps\": 14000, \"priority\": 7, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我需要游戏语音，延迟在74ms以内，抖动不超过7ms。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"游戏语音\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 74, \"jitter_target_ms\": 7, \"packet_loss_rate\": 0.0005, \"bandwidth_kbps\": 23, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "PLC信号传输要连续，保证生产安全"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 15, \"bandwidth_kbps\": 344, \"priority\": 3, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "做远程医疗咨询时，延迟最好能在 52ms 内，不然医生和病人沟通容易错位。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，少丢包，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 52, \"jitter_target_ms\": 10, \"packet_loss_rate\": 0.0017, \"bandwidth_kbps\": 2661, \"priority\": 2, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "文件同步快"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 1461, \"jitter_target_ms\": 2, \"bandwidth_kbps\": 3253, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "点播列表加载要快，不要每次都转圈圈。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"点播系统\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 241, \"jitter_target_ms\": 12, \"bandwidth_kbps\": 2643, \"priority\": 4, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "拨打紧急电话时，语音和视频必须零滞后。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，高优先级\"}, \"policy\": {\"latency_target_ms\": 50, \"jitter_target_ms\": 15, \"packet_loss_rate\": 0.0054, \"bandwidth_kbps\": 53, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "为云游戏预留大约 7677kbps 带宽，画面与音频要保持同步且清晰。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，低抖动，少丢包，高带宽，高优先级，高可靠，高分辨率\"}, \"policy\": {\"latency_target_ms\": 28, \"jitter_target_ms\": 9, \"packet_loss_rate\": 0.0047, \"bandwidth_kbps\": 7677, \"priority\": 3, \"reliability\": 0.9999, \"resolution\": \"1080p\", \"frame_rate\": 60}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "上传速度要高"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1995, \"jitter_target_ms\": 22, \"bandwidth_kbps\": 11423, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "高画质直播要一直清楚，不要忽明忽暗"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 249, \"jitter_target_ms\": 20, \"bandwidth_kbps\": 4247, \"priority\": 4, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "云备份需要稳定，可靠性起码得有 0.99。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1969, \"jitter_target_ms\": 10, \"bandwidth_kbps\": 12006, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "丢包率保持在 0.43% 以下，诊疗画面才能稳定。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 69, \"jitter_target_ms\": 0, \"packet_loss_rate\": 0.0043, \"bandwidth_kbps\": 1855, \"priority\": 2, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "短视频加载速度要快，带宽保持 2228kbps 左右比较稳。抖动低于 34ms 就不会花屏。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 287, \"jitter_target_ms\": 34, \"bandwidth_kbps\": 2228, \"priority\": 4, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想稳定看直播，清晰度最好能达到 720p。延迟控制在 175ms 左右，带宽保持 2512kbps 才不会卡。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"高优先级\"}, \"policy\": {\"latency_target_ms\": 175, \"jitter_target_ms\": 30, \"bandwidth_kbps\": 2512, \"priority\": 3, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "5G语音通话抖动要尽量小。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoNR\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 67, \"jitter_target_ms\": 6, \"packet_loss_rate\": 0.0003, \"bandwidth_kbps\": 57, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "上传体验顺畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1530, \"jitter_target_ms\": 26, \"bandwidth_kbps\": 5365, \"priority\": 7, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "加载网页不要卡，延迟和抖动最好在 88ms / 11ms 内。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低时延，低优先级\"}, \"policy\": {\"latency_target_ms\": 88, \"jitter_target_ms\": 11, \"bandwidth_kbps\": 3596, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "AGV电量和速度数据要实时更新"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 84, \"bandwidth_kbps\": 378, \"priority\": 2, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "资料上传不中断"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 885, \"jitter_target_ms\": 26, \"bandwidth_kbps\": 5462, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "拖动时间轴后要快速恢复播放，不要卡住不动。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"电影\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 459, \"jitter_target_ms\": 11, \"bandwidth_kbps\": 3298, \"priority\": 5, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "消息发送成功要快，避免重复操作"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"即时聊天\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 90, \"jitter_target_ms\": 12, \"bandwidth_kbps\": 2198, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "聊天中表情和图片要立即显示"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"即时聊天\", \"user_intent\": \"低时延，低优先级\"}, \"policy\": {\"latency_target_ms\": 60, \"jitter_target_ms\": 16, \"bandwidth_kbps\": 4332, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "多人 AR 协作时同步性要好，丢包率控制在 2.37% 以下，状态更新不能延迟太久。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"VR_AR_协作\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 40, \"jitter_target_ms\": 19, \"packet_loss_rate\": 0.0237, \"bandwidth_kbps\": 17473, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想刷短视频不卡顿，优先级设置到 5 会更稳定。清晰度希望能到 4K。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"低抖动，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 329, \"jitter_target_ms\": 8, \"bandwidth_kbps\": 3533, \"priority\": 5, \"resolution\": \"4K\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "互动内容要实时刷新，不要一堆消息堆着不出现"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 147, \"jitter_target_ms\": 12, \"bandwidth_kbps\": 4520, \"priority\": 3, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "急救电话抖动必须最小化，保证实时接通。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 99, \"jitter_target_ms\": 1, \"packet_loss_rate\": 0.0091, \"bandwidth_kbps\": 50, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "浏览网页时内容显示要完整不卡顿"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 102, \"jitter_target_ms\": 19, \"bandwidth_kbps\": 5812, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "备份体验流畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 681, \"jitter_target_ms\": 7, \"bandwidth_kbps\": 5829, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "社交应用要稳定一点，可靠性维持在 0.99。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"社交媒体\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 121, \"jitter_target_ms\": 18, \"bandwidth_kbps\": 3228, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "多人协作顺畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"VR_AR_协作\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 21, \"jitter_target_ms\": 1, \"packet_loss_rate\": 0.0467, \"bandwidth_kbps\": 15883, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "文档发送要及时"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1208, \"jitter_target_ms\": 4, \"bandwidth_kbps\": 7172, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "远程操控机器人时反馈要即时"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"机器人控制\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 49, \"bandwidth_kbps\": 240, \"priority\": 2, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "云端操控别有卡顿，抖动控制在 4ms 内，输入响应要稳定。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 26, \"jitter_target_ms\": 4, \"packet_loss_rate\": 0.0073, \"bandwidth_kbps\": 11386, \"priority\": 3, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "打开网页内容即时显示，不出现延迟"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低时延，低优先级\"}, \"policy\": {\"latency_target_ms\": 60, \"jitter_target_ms\": 21, \"bandwidth_kbps\": 2501, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "VoIP通话希望抖动低于1ms，不卡顿。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoIP\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 76, \"jitter_target_ms\": 1, \"packet_loss_rate\": 0.0006, \"bandwidth_kbps\": 58, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "聊天消息及时到"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 76, \"jitter_target_ms\": 2, \"packet_loss_rate\": 0.0003, \"bandwidth_kbps\": 2658, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"4K\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "交互体验流畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"VR_AR_协作\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高分辨率，高帧率\"}, \"policy\": {\"latency_target_ms\": 37, \"jitter_target_ms\": 7, \"packet_loss_rate\": 0.024, \"bandwidth_kbps\": 8417, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"1080p\", \"frame_rate\": 90}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "云端操控别有卡顿，抖动控制在 4ms 内，输入响应要稳定。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 29, \"jitter_target_ms\": 4, \"packet_loss_rate\": 0.0203, \"bandwidth_kbps\": 9093, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "虚拟场景中需保证高分辨率和低延迟，带宽约为 8068kbps，画质细节不能丢失。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"VR_AR_协作\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠，高分辨率，高帧率\"}, \"policy\": {\"latency_target_ms\": 20, \"jitter_target_ms\": 16, \"packet_loss_rate\": 0.0358, \"bandwidth_kbps\": 8068, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"1080p\", \"frame_rate\": 90}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "直播延迟低"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"在线课堂\", \"user_intent\": \"低时延，低抖动，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 53, \"jitter_target_ms\": 5, \"packet_loss_rate\": 0.0091, \"bandwidth_kbps\": 1113, \"priority\": 2, \"reliability\": 0.999, \"resolution\": \"4K\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "直播间互动需要很及时，网络延迟最好别超过 214ms，不然发条评论要半天才出现。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"低抖动，高带宽，高优先级\"}, \"policy\": {\"latency_target_ms\": 214, \"jitter_target_ms\": 2, \"bandwidth_kbps\": 5877, \"priority\": 3, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "上传文件别老卡住，延迟控制在 724ms 内就稳了。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 724, \"jitter_target_ms\": 12, \"bandwidth_kbps\": 5927, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "希望5G电话音视频同步，延迟越低越好。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoNR\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 55, \"jitter_target_ms\": 5, \"packet_loss_rate\": 0.0076, \"bandwidth_kbps\": 48, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "急救语音通话需要稳定传输，抖动低。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 82, \"jitter_target_ms\": 3, \"packet_loss_rate\": 0.0018, \"bandwidth_kbps\": 18, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想流畅看电影，画质最好达到 720p，带宽维持在 3612kbps 才够稳定。延迟别超过 239ms，不然加载会慢。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"电影\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 239, \"jitter_target_ms\": 6, \"bandwidth_kbps\": 3612, \"priority\": 4, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "采集的传感信息要实时上传，不卡顿"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"高可靠，低优先级\"}, \"policy\": {\"latency_target_ms\": 95, \"bandwidth_kbps\": 82, \"priority\": 4, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "聊天优先级设高一点，至少在 5。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"即时聊天\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 101, \"jitter_target_ms\": 7, \"bandwidth_kbps\": 8104, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "5G语音要立刻传输，延迟越小越顺畅。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoNR\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 56, \"jitter_target_ms\": 9, \"packet_loss_rate\": 0.0048, \"bandwidth_kbps\": 22, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "物流车辆状态变化要及时通知系统"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 46, \"bandwidth_kbps\": 288, \"priority\": 1, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "远程医疗通话需要非常稳，延迟 62ms 内、抖动低于 4ms 让诊断更准确。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 62, \"jitter_target_ms\": 4, \"packet_loss_rate\": 0.0073, \"bandwidth_kbps\": 2613, \"priority\": 4, \"reliability\": 0.999, \"resolution\": \"4K\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "网页翻页要快速，操作不等待"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 120, \"jitter_target_ms\": 20, \"bandwidth_kbps\": 5451, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "拨打VoIP电话，延迟要尽可能控制在最小。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoIP\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 55, \"jitter_target_ms\": 5, \"packet_loss_rate\": 0.0094, \"bandwidth_kbps\": 17, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "视频会议抖动别超过 1ms，不然画面容易一卡一卡的。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，低抖动，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 50, \"jitter_target_ms\": 1, \"packet_loss_rate\": 0.0094, \"bandwidth_kbps\": 1817, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "文件上传稳定"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1168, \"jitter_target_ms\": 24, \"bandwidth_kbps\": 16534, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想稳定看直播，清晰度最好能达到 720p。延迟控制在 130ms 左右，带宽保持 4560kbps 才不会卡。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 130, \"jitter_target_ms\": 27, \"bandwidth_kbps\": 4560, \"priority\": 4, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "开游戏别卡顿"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠，高分辨率，高帧率\"}, \"policy\": {\"latency_target_ms\": 24, \"jitter_target_ms\": 18, \"packet_loss_rate\": 0.0085, \"bandwidth_kbps\": 9447, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"1080p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "同步信号不能中断，可靠性得达到 0.99999。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"低时延，高可靠，低优先级\"}, \"policy\": {\"latency_target_ms\": 88, \"bandwidth_kbps\": 119, \"priority\": 4, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "点赞评论动作要即时反馈，不延迟"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"社交媒体\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 133, \"jitter_target_ms\": 28, \"bandwidth_kbps\": 5473, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "主播动作画面要顺滑，不要跳帧"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"低抖动，高带宽，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 239, \"jitter_target_ms\": 8, \"bandwidth_kbps\": 5315, \"priority\": 3, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "开游戏语音时，希望延迟稳定，抖动小。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"游戏语音\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 88, \"jitter_target_ms\": 5, \"packet_loss_rate\": 0.0075, \"bandwidth_kbps\": 20, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "队伍模式下语音与数据要同步，抖动小于 2ms，通信不应延时明显。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"多人交互\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高分辨率\"}, \"policy\": {\"latency_target_ms\": 27, \"jitter_target_ms\": 2, \"packet_loss_rate\": 0.0321, \"bandwidth_kbps\": 18830, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"1080p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "多台AGV同时上报时要互不干扰"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 95, \"bandwidth_kbps\": 428, \"priority\": 2, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我需要VoNR通话延迟越低越好。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoNR\", \"user_intent\": \"低时延，高优先级\"}, \"policy\": {\"latency_target_ms\": 60, \"jitter_target_ms\": 12, \"packet_loss_rate\": 0.0052, \"bandwidth_kbps\": 51, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "导航信息的上传延迟别太高，82ms 内比较稳。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 82, \"bandwidth_kbps\": 56, \"priority\": 1, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "图片流不要抖，抖动低于 9ms 效果最好。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"社交媒体\", \"user_intent\": \"低时延，低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 80, \"jitter_target_ms\": 9, \"bandwidth_kbps\": 8519, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "开一通游戏语音，时延控制在89ms以内，不卡顿。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"游戏语音\", \"user_intent\": \"低时延，高优先级\"}, \"policy\": {\"latency_target_ms\": 89, \"jitter_target_ms\": 12, \"packet_loss_rate\": 0.0074, \"bandwidth_kbps\": 36, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我要拨打急救电话，延迟最小化。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，高优先级\"}, \"policy\": {\"latency_target_ms\": 50, \"jitter_target_ms\": 17, \"packet_loss_rate\": 0.0074, \"bandwidth_kbps\": 18, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "备份过程稳定"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1070, \"jitter_target_ms\": 12, \"bandwidth_kbps\": 8110, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "短视频加载速度要快，带宽保持 3779kbps 左右比较稳。抖动低于 27ms 就不会花屏。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 354, \"jitter_target_ms\": 27, \"bandwidth_kbps\": 3779, \"priority\": 6, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "聊天互动及时显示"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"多人交互\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 32, \"jitter_target_ms\": 18, \"packet_loss_rate\": 0.0301, \"bandwidth_kbps\": 6666, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "同步信号不能中断，可靠性得达到 0.99999。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 65, \"bandwidth_kbps\": 185, \"priority\": 1, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我需要一通急救电话，时延控制在81ms以内，抖动低于18ms。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 81, \"jitter_target_ms\": 18, \"packet_loss_rate\": 0.0021, \"bandwidth_kbps\": 30, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "看直播的时候画面别抖，抖动控制在 6ms 内，清晰度保持 480p，体验才好。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 298, \"jitter_target_ms\": 6, \"bandwidth_kbps\": 4330, \"priority\": 4, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "VR互动不卡顿"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"VR_AR_协作\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 37, \"jitter_target_ms\": 3, \"packet_loss_rate\": 0.0348, \"bandwidth_kbps\": 18258, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 60}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "虚拟场景中需保证高分辨率和低延迟，带宽约为 11254kbps，画质细节不能丢失。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"VR_AR_协作\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠，高分辨率，高帧率\"}, \"policy\": {\"latency_target_ms\": 32, \"jitter_target_ms\": 14, \"packet_loss_rate\": 0.0087, \"bandwidth_kbps\": 11254, \"priority\": 3, \"reliability\": 0.9999, \"resolution\": \"1080p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "互动评论加载要顺畅，不卡顿"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"社交媒体\", \"user_intent\": \"低时延，低优先级\"}, \"policy\": {\"latency_target_ms\": 64, \"jitter_target_ms\": 11, \"bandwidth_kbps\": 2768, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "直播突然糊掉特别影响体验，丢包和抖动要小一点，尤其抖动最好低于 1ms。带宽至少 4340kbps 才能稳住 480p。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 261, \"jitter_target_ms\": 1, \"bandwidth_kbps\": 4340, \"priority\": 5, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "学生问题及时回答"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"在线课堂\", \"user_intent\": \"低时延，低抖动，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 59, \"jitter_target_ms\": 7, \"packet_loss_rate\": 0.0052, \"bandwidth_kbps\": 1685, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "弹幕发送后要马上显示，不能延迟太久"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 147, \"jitter_target_ms\": 17, \"bandwidth_kbps\": 3153, \"priority\": 3, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "备份大文件时带宽要高一些，最好在 17524kbps。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1848, \"jitter_target_ms\": 18, \"bandwidth_kbps\": 17524, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "PLC 数据上传要保证稳定性，链路可靠性保持在 0.99999。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 64, \"bandwidth_kbps\": 316, \"priority\": 3, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "请确保5G通话稳定，丢包率不超过0.74%。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoNR\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 67, \"jitter_target_ms\": 3, \"packet_loss_rate\": 0.0074, \"bandwidth_kbps\": 26, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "访问新闻网站时延迟要低，流畅阅读"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 111, \"jitter_target_ms\": 2, \"bandwidth_kbps\": 9156, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "大文件传输顺畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1821, \"jitter_target_ms\": 0, \"bandwidth_kbps\": 7031, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "下载视频要快"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件下载\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1682, \"jitter_target_ms\": 29, \"bandwidth_kbps\": 8029, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "在线对战反应快"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 34, \"jitter_target_ms\": 19, \"packet_loss_rate\": 0.0257, \"bandwidth_kbps\": 19004, \"priority\": 3, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 90}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "请保证急救电话通话稳定，丢包率不超过0.81%。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 77, \"jitter_target_ms\": 4, \"packet_loss_rate\": 0.0081, \"bandwidth_kbps\": 47, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "互动内容要实时刷新，不要一堆消息堆着不出现"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 165, \"jitter_target_ms\": 8, \"bandwidth_kbps\": 5291, \"priority\": 4, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "视频下载顺畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件下载\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 1165, \"jitter_target_ms\": 2, \"bandwidth_kbps\": 4039, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "PLC 上行带宽维持在 76kbps 就够用，只要不中断。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 65, \"bandwidth_kbps\": 76, \"priority\": 1, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "文档发送要及时"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 1481, \"jitter_target_ms\": 3, \"bandwidth_kbps\": 3849, \"priority\": 7, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "短视频加载速度要快，带宽保持 3082kbps 左右比较稳。抖动低于 25ms 就不会花屏。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 483, \"jitter_target_ms\": 25, \"bandwidth_kbps\": 3082, \"priority\": 6, \"resolution\": \"4K\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "紧急通话不能有任何延迟。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，高优先级\"}, \"policy\": {\"latency_target_ms\": 51, \"jitter_target_ms\": 18, \"packet_loss_rate\": 0.0053, \"bandwidth_kbps\": 15, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "虚拟场景中需保证高分辨率和低延迟，带宽约为 11044kbps，画质细节不能丢失。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"VR_AR_协作\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 39, \"jitter_target_ms\": 9, \"packet_loss_rate\": 0.0479, \"bandwidth_kbps\": 11044, \"priority\": 3, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "请保证急救电话通话稳定，丢包率不超过0.67%。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 94, \"jitter_target_ms\": 8, \"packet_loss_rate\": 0.0067, \"bandwidth_kbps\": 39, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "观看时视频清晰稳定，不要突然糊掉"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 255, \"jitter_target_ms\": 23, \"bandwidth_kbps\": 4317, \"priority\": 5, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "丢包率保持在 0.80% 以下，诊疗画面才能稳定。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 78, \"jitter_target_ms\": 3, \"packet_loss_rate\": 0.008, \"bandwidth_kbps\": 2693, \"priority\": 4, \"reliability\": 0.999, \"resolution\": \"4K\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "同时大量玩家交互时，请保证网络带宽与可靠性，丢包率控制在 3.53% 以下。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"多人交互\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 21, \"jitter_target_ms\": 2, \"packet_loss_rate\": 0.0353, \"bandwidth_kbps\": 18272, \"priority\": 3, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 90}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "拨打5G电话，延迟控制在最低。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoNR\", \"user_intent\": \"低时延，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 53, \"jitter_target_ms\": 19, \"packet_loss_rate\": 0.0044, \"bandwidth_kbps\": 33, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "机械臂控制对延迟特别敏感，最好别超过 92ms。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"机器人控制\", \"user_intent\": \"高可靠，低优先级\"}, \"policy\": {\"latency_target_ms\": 92, \"bandwidth_kbps\": 100, \"priority\": 4, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "观众互动反应要及时，让交流自然顺畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 136, \"jitter_target_ms\": 17, \"bandwidth_kbps\": 4289, \"priority\": 4, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "备份大文件时带宽要高一些，最好在 16281kbps。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 948, \"jitter_target_ms\": 23, \"bandwidth_kbps\": 16281, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "直播不要频繁转圈，网络延迟控制在 121ms 内，抖动别超过 24ms，这样 1080p 画面才能一直清楚。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 121, \"jitter_target_ms\": 24, \"bandwidth_kbps\": 4939, \"priority\": 3, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "打开网页要尽量快，不希望加载缓慢"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 129, \"jitter_target_ms\": 20, \"bandwidth_kbps\": 3578, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "PLC 数据上传要保证稳定性，链路可靠性保持在 0.99999。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 73, \"bandwidth_kbps\": 297, \"priority\": 1, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "短视频声音要清晰，不要出现断断续续的情况。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 415, \"jitter_target_ms\": 36, \"bandwidth_kbps\": 1942, \"priority\": 5, \"resolution\": \"4K\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "为云游戏预留大约 8162kbps 带宽，画面与音频要保持同步且清晰。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 20, \"jitter_target_ms\": 2, \"packet_loss_rate\": 0.0313, \"bandwidth_kbps\": 8162, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 90}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "加载网页不要卡，延迟和抖动最好在 109ms / 0ms 内。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 109, \"jitter_target_ms\": 0, \"bandwidth_kbps\": 8472, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "高分辨率电影要流畅播放，不要掉帧。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"电影\", \"user_intent\": \"高带宽，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 346, \"jitter_target_ms\": 15, \"bandwidth_kbps\": 5315, \"priority\": 6, \"resolution\": \"4K\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "手术视频要稳定"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 60, \"jitter_target_ms\": 8, \"packet_loss_rate\": 0.0086, \"bandwidth_kbps\": 2350, \"priority\": 4, \"reliability\": 0.999, \"resolution\": \"4K\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "社交应用要稳定一点，可靠性维持在 0.99。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"社交媒体\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 111, \"jitter_target_ms\": 4, \"bandwidth_kbps\": 6560, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "机器人上报数据的带宽控制在 279kbps 就够了，只要稳定。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"机器人控制\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 25, \"bandwidth_kbps\": 279, \"priority\": 2, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "备份体验流畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1804, \"jitter_target_ms\": 13, \"bandwidth_kbps\": 5380, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "短视频声音要清晰，不要出现断断续续的情况。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 243, \"jitter_target_ms\": 26, \"bandwidth_kbps\": 6416, \"priority\": 5, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "下载文件要快，带宽最好能达到 7052kbps。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件下载\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 871, \"jitter_target_ms\": 3, \"bandwidth_kbps\": 7052, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "刷动态顺畅点，带宽保持在 7076kbps。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"社交媒体\", \"user_intent\": \"低时延，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 53, \"jitter_target_ms\": 22, \"bandwidth_kbps\": 7076, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想快速备份照片，需要比较好的上传带宽，大概 9230kbps。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 1984, \"jitter_target_ms\": 12, \"bandwidth_kbps\": 9230, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "5G通话的抖动不要超过7ms，保证语音顺畅。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoNR\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 66, \"jitter_target_ms\": 7, \"packet_loss_rate\": 0.0078, \"bandwidth_kbps\": 53, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "短视频滑动速度快，需要低延迟（约 372ms）和低抖动（10ms）。带宽最好保持在 1718kbps。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 372, \"jitter_target_ms\": 10, \"bandwidth_kbps\": 1718, \"priority\": 5, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "刷短视频切换很快，希望延迟小于 498ms，画面能维持在 4K 清晰度。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"高带宽，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 498, \"jitter_target_ms\": 37, \"bandwidth_kbps\": 6525, \"priority\": 5, \"resolution\": \"4K\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想看一部 720p 的电影，别卡顿。带宽保证 4007kbps，延迟和抖动都控制在 231ms / 21ms 以内。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"电影\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 231, \"jitter_target_ms\": 21, \"bandwidth_kbps\": 4007, \"priority\": 4, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "VR互动不卡顿"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"VR_AR_协作\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 20, \"jitter_target_ms\": 8, \"packet_loss_rate\": 0.0228, \"bandwidth_kbps\": 6118, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 90}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "游戏过程中请优先保证网络连接质量，丢包率低于 3.13%，体验才不会中断。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 36, \"jitter_target_ms\": 19, \"packet_loss_rate\": 0.0313, \"bandwidth_kbps\": 10514, \"priority\": 3, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 90}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "滚动浏览时视频和图像连续播放不卡"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"社交媒体\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 109, \"jitter_target_ms\": 2, \"bandwidth_kbps\": 2821, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "做远程医疗咨询时，延迟最好能在 63ms 内，不然医生和病人沟通容易错位。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 63, \"jitter_target_ms\": 2, \"packet_loss_rate\": 0.0064, \"bandwidth_kbps\": 2549, \"priority\": 4, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "视频拖动进度条后要立刻跳转，不要一直缓冲。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"点播系统\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 471, \"jitter_target_ms\": 38, \"bandwidth_kbps\": 7838, \"priority\": 5, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "AGV任务完成情况要快速反馈"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 12, \"bandwidth_kbps\": 376, \"priority\": 1, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "备份时抖动别超过 2ms，让传输更稳一点。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"云备份\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 1599, \"jitter_target_ms\": 2, \"bandwidth_kbps\": 4200, \"priority\": 7, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想看高清短视频，分辨率达到 720p。为了避免卡顿，带宽要有 5124kbps，抖动最好很小（11ms）。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"短视频\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 341, \"jitter_target_ms\": 11, \"bandwidth_kbps\": 5124, \"priority\": 4, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "为云游戏预留大约 14729kbps 带宽，画面与音频要保持同步且清晰。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 40, \"jitter_target_ms\": 8, \"packet_loss_rate\": 0.0436, \"bandwidth_kbps\": 14729, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "视频会议的丢包率最好低于 0.65%，画面才不会糊。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，低抖动，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 57, \"jitter_target_ms\": 0, \"packet_loss_rate\": 0.0065, \"bandwidth_kbps\": 2523, \"priority\": 2, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "观看时视频清晰稳定，不要突然糊掉"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 120, \"jitter_target_ms\": 6, \"bandwidth_kbps\": 5942, \"priority\": 4, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想开个视频会，延迟低一点、抖动小一点，72ms 和 8ms 以内就最好。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"在线教育\", \"user_intent\": \"低时延，低抖动，少丢包，低优先级\"}, \"policy\": {\"latency_target_ms\": 72, \"jitter_target_ms\": 8, \"packet_loss_rate\": 0.0045, \"bandwidth_kbps\": 2648, \"priority\": 4, \"reliability\": 0.999, \"resolution\": \"720p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想开个视频会，延迟低一点、抖动小一点，73ms 和 10ms 以内就最好。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，少丢包，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 73, \"jitter_target_ms\": 10, \"packet_loss_rate\": 0.0025, \"bandwidth_kbps\": 1425, \"priority\": 4, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "和主播实时互动时，抖动控制在 9ms 以内特别重要。清晰度保持 720p，带宽大概 2430kbps 才够用。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 177, \"jitter_target_ms\": 9, \"bandwidth_kbps\": 2430, \"priority\": 3, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "视频会议抖动别超过 9ms，不然画面容易一卡一卡的。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"在线教育\", \"user_intent\": \"低时延，低抖动，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 69, \"jitter_target_ms\": 9, \"packet_loss_rate\": 0.0093, \"bandwidth_kbps\": 2735, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"4K\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "虚拟场景中需保证高分辨率和低延迟，带宽约为 7230kbps，画质细节不能丢失。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"VR_AR_协作\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 36, \"jitter_target_ms\": 18, \"packet_loss_rate\": 0.0134, \"bandwidth_kbps\": 7230, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "网页加载快一点，延迟控制在 129ms 左右。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"网页访问\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 129, \"jitter_target_ms\": 10, \"bandwidth_kbps\": 8432, \"priority\": 4, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "声音画面同步好"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 52, \"jitter_target_ms\": 10, \"packet_loss_rate\": 0.0087, \"bandwidth_kbps\": 1885, \"priority\": 2, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "车辆运行信息上报要连续稳定"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 67, \"bandwidth_kbps\": 29, \"priority\": 2, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "急救电话时延必须尽可能低。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 57, \"jitter_target_ms\": 10, \"packet_loss_rate\": 0.0026, \"bandwidth_kbps\": 30, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "急救或紧急通话通过VoNR，延迟必须最小化。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"VoNR\", \"user_intent\": \"低时延，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 60, \"jitter_target_ms\": 12, \"packet_loss_rate\": 0.0011, \"bandwidth_kbps\": 37, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "物流车辆状态变化要及时通知系统"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 14, \"bandwidth_kbps\": 156, \"priority\": 3, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "视频会议的丢包率最好低于 0.05%，画面才不会糊。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"在线教育\", \"user_intent\": \"低时延，低抖动，少丢包，高优先级，高分辨率\"}, \"policy\": {\"latency_target_ms\": 51, \"jitter_target_ms\": 7, \"packet_loss_rate\": 0.0005, \"bandwidth_kbps\": 1260, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"1080p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "开游戏语音时，希望延迟稳定，抖动小。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"游戏语音\", \"user_intent\": \"低时延，高优先级\"}, \"policy\": {\"latency_target_ms\": 53, \"jitter_target_ms\": 10, \"packet_loss_rate\": 0.0083, \"bandwidth_kbps\": 22, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "开云游戏时希望画面不卡、操控及时，把带宽调到 16347kbps 并控制延迟在 32ms。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 32, \"jitter_target_ms\": 16, \"packet_loss_rate\": 0.0497, \"bandwidth_kbps\": 16347, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我想顺畅看一场直播，延迟不要太高，能在 147ms 内最好。画面希望维持在 720p，带宽要稳在 3447kbps。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 147, \"jitter_target_ms\": 17, \"bandwidth_kbps\": 3447, \"priority\": 4, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "多人互动应用中，输入延迟会影响体验，请把端到端延迟控制在 29ms。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"多人交互\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 29, \"jitter_target_ms\": 2, \"packet_loss_rate\": 0.0223, \"bandwidth_kbps\": 7116, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 60}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "AGV 位置上报要快速，延迟控制在 88ms 较好。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"AGV上报\", \"user_intent\": \"低时延，高可靠，低优先级\"}, \"policy\": {\"latency_target_ms\": 88, \"bandwidth_kbps\": 282, \"priority\": 4, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "语音聊天不要出现卡顿或抖动，保持流畅。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"游戏语音\", \"user_intent\": \"低抖动，少丢包，高优先级\"}, \"policy\": {\"latency_target_ms\": 94, \"jitter_target_ms\": 8, \"packet_loss_rate\": 0.0004, \"bandwidth_kbps\": 36, \"priority\": 1, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "语音连线要清楚，不能出现明显延迟"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 274, \"jitter_target_ms\": 18, \"bandwidth_kbps\": 5131, \"priority\": 5, \"resolution\": \"720p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "文件下载不卡"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件下载\", \"user_intent\": \"低抖动，低优先级\"}, \"policy\": {\"latency_target_ms\": 784, \"jitter_target_ms\": 6, \"bandwidth_kbps\": 4826, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "PLC 数据上传要保证稳定性，链路可靠性保持在 0.99999。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"monitoring\", \"requirement\": \"PLC数据同步\", \"user_intent\": \"低时延，高优先级，高可靠\"}, \"policy\": {\"latency_target_ms\": 52, \"bandwidth_kbps\": 59, \"priority\": 3, \"reliability\": 0.99999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "电影缓存速度要跟得上，不能一直转圈。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"电影\", \"user_intent\": \"低抖动，高带宽，高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 456, \"jitter_target_ms\": 9, \"bandwidth_kbps\": 6047, \"priority\": 6, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "手术视频要稳定"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 71, \"jitter_target_ms\": 3, \"packet_loss_rate\": 0.0073, \"bandwidth_kbps\": 1177, \"priority\": 2, \"reliability\": 0.999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "多人游戏大厅切换到战斗时，优先保障低延迟切片，确保交互不卡顿。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"多人交互\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高帧率\"}, \"policy\": {\"latency_target_ms\": 37, \"jitter_target_ms\": 7, \"packet_loss_rate\": 0.0496, \"bandwidth_kbps\": 7457, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"720p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "在点播系统里拖动进度条时，希望抖动低于 28ms，这样画面出现更快。优先级至少要 5。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_video\", \"requirement\": \"点播系统\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 303, \"jitter_target_ms\": 28, \"bandwidth_kbps\": 1859, \"priority\": 5, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "语音清楚不卡顿"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"视频会议\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 51, \"jitter_target_ms\": 1, \"packet_loss_rate\": 0.0092, \"bandwidth_kbps\": 1816, \"priority\": 2, \"reliability\": 0.999, \"resolution\": \"720p\", \"frame_rate\": 25}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "操作输入响应快"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，少丢包，高带宽，高优先级，高可靠，高分辨率，高帧率\"}, \"policy\": {\"latency_target_ms\": 28, \"jitter_target_ms\": 10, \"packet_loss_rate\": 0.0046, \"bandwidth_kbps\": 14974, \"priority\": 2, \"reliability\": 0.9999, \"resolution\": \"1080p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "弹幕发送后要马上显示，不能延迟太久"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"高优先级\"}, \"policy\": {\"latency_target_ms\": 267, \"jitter_target_ms\": 17, \"bandwidth_kbps\": 2095, \"priority\": 3, \"resolution\": \"480p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "大文件传输顺畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"低优先级\"}, \"policy\": {\"latency_target_ms\": 1014, \"jitter_target_ms\": 27, \"bandwidth_kbps\": 2743, \"priority\": 6, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "和主播语音互动时声音要同步，不要时差"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播互动\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 234, \"jitter_target_ms\": 20, \"bandwidth_kbps\": 4796, \"priority\": 5, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "连线要稳定"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_xr_gaming\", \"requirement\": \"云游戏\", \"user_intent\": \"低时延，低抖动，高带宽，高优先级，高可靠，高分辨率，高帧率\"}, \"policy\": {\"latency_target_ms\": 35, \"jitter_target_ms\": 0, \"packet_loss_rate\": 0.0429, \"bandwidth_kbps\": 5504, \"priority\": 1, \"reliability\": 0.9999, \"resolution\": \"1080p\", \"frame_rate\": 120}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "咨询时不卡顿"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_video\", \"requirement\": \"远程医疗\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 71, \"jitter_target_ms\": 9, \"packet_loss_rate\": 0.005, \"bandwidth_kbps\": 2481, \"priority\": 3, \"reliability\": 0.999, \"resolution\": \"720p\", \"frame_rate\": 30}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "我要拨打急救电话，延迟最小化。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"realtime_voice_call\", \"requirement\": \"急救电话\", \"user_intent\": \"低时延，低抖动，高优先级\"}, \"policy\": {\"latency_target_ms\": 52, \"jitter_target_ms\": 8, \"packet_loss_rate\": 0.0072, \"bandwidth_kbps\": 50, \"priority\": 2, \"reliability\": 0.999}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "消息发送成功要快，避免重复操作"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"internet_access\", \"requirement\": \"即时聊天\", \"user_intent\": \"低时延，低抖动，高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 60, \"jitter_target_ms\": 2, \"bandwidth_kbps\": 6483, \"priority\": 5, \"reliability\": 0.99}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "直播不要频繁转圈，网络延迟控制在 182ms 内，抖动别超过 23ms，这样 1080p 画面才能一直清楚。"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"streaming_live\", \"requirement\": \"直播观看\", \"user_intent\": \"高分辨率，低优先级\"}, \"policy\": {\"latency_target_ms\": 182, \"jitter_target_ms\": 23, \"bandwidth_kbps\": 4987, \"priority\": 4, \"resolution\": \"1080p\"}}"
+      }
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "大文件传输顺畅"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"slots\": {\"intent\": \"file_transfer\", \"requirement\": \"文件上传\", \"user_intent\": \"高带宽，低优先级\"}, \"policy\": {\"latency_target_ms\": 938, \"jitter_target_ms\": 15, \"bandwidth_kbps\": 5097, \"priority\": 7, \"reliability\": 0.99}}"
+      }
+    ]
+  }
+]
