@@ -60,7 +60,7 @@ RESUME_FROM_CHECKPOINT = None  # 从检查点恢复训练
 # =====================
 
 def load_dataset(data_path, tokenizer):
-    """加载数据集并格式化为文本"""
+    """加载数据集并进行tokenization"""
     print(f"正在加载数据集: {data_path}")
     with open(data_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -77,8 +77,22 @@ def load_dataset(data_path, tokenizer):
         )
         texts.append(text)
     
+    # 进行tokenization
+    def tokenize_function(texts):
+        tokenized = tokenizer(
+            texts,
+            truncation=True,
+            max_length=MAX_LENGTH,
+            padding=False,
+            return_tensors=None
+        )
+        return tokenized
+    
+    # Tokenize所有文本
+    tokenized_data = tokenize_function(texts)
+    
     # 转换为Dataset格式
-    dataset = Dataset.from_dict({"text": texts})
+    dataset = Dataset.from_dict(tokenized_data)
     
     return dataset
 
@@ -157,15 +171,11 @@ def main():
         save_safetensors=True,
     )
     
-    # 创建SFTTrainer（自动处理数据格式）
+    # 创建SFTTrainer（使用最简参数）
     trainer = SFTTrainer(
         model=model,
         args=training_args,
         train_dataset=train_dataset,
-        tokenizer=tokenizer,
-        max_seq_length=MAX_LENGTH,
-        dataset_text_field="text",  # 指定包含文本的字段
-        packing=False,  # 不打包序列
     )
     
     # 从检查点恢复（如果指定）
@@ -206,6 +216,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
 
 
 
