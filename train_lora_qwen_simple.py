@@ -31,7 +31,6 @@ from datasets import Dataset
 # =====================
 MODEL_DIR = "/work/2024/zhulei/models/qwen3-4b"  # 模型路径
 TRAIN_DATA_PATH = "/work/2024/zhulei/intent-driven/train_qwen.json"  # 训练数据路径
-VAL_DATA_PATH = "/work/2024/zhulei/intent-driven/test_qwen.json"  # 验证数据路径（可选）
 OUTPUT_DIR = "/work/2024/zhulei/intent-driven/outputs/qwen3-4b-lora"  # 输出目录
 
 # LoRA参数
@@ -47,7 +46,6 @@ LEARNING_RATE = 2e-4  # 学习率
 NUM_EPOCHS = 3  # 训练轮数
 MAX_LENGTH = 1024  # 最大序列长度
 SAVE_STEPS = 500  # 每多少步保存一次
-EVAL_STEPS = 500  # 每多少步评估一次
 LOGGING_STEPS = 50  # 每多少步记录一次日志
 WARMUP_STEPS = 100  # 预热步数
 FP16 = True  # 是否使用混合精度训练
@@ -140,28 +138,19 @@ def main():
     # 加载训练数据
     train_dataset = load_dataset(TRAIN_DATA_PATH, tokenizer)
     
-    # 加载验证数据（如果存在）
-    eval_dataset = None
-    if VAL_DATA_PATH and os.path.exists(VAL_DATA_PATH):
-        eval_dataset = load_dataset(VAL_DATA_PATH, tokenizer)
-    
     # 训练参数
     training_args = TrainingArguments(
         output_dir=str(output_dir),
         overwrite_output_dir=True,
         num_train_epochs=NUM_EPOCHS,
         per_device_train_batch_size=BATCH_SIZE,
-        per_device_eval_batch_size=BATCH_SIZE,
         gradient_accumulation_steps=GRADIENT_ACCUMULATION_STEPS,
         learning_rate=LEARNING_RATE,
         fp16=FP16,
         logging_steps=LOGGING_STEPS,
         save_steps=SAVE_STEPS,
-        eval_steps=EVAL_STEPS if eval_dataset else None,
-        evaluation_strategy="steps" if eval_dataset else "no",
+        evaluation_strategy="no",  # 不进行评估
         save_total_limit=3,  # 只保留最近3个检查点
-        load_best_model_at_end=True if eval_dataset else False,
-        metric_for_best_model="loss" if eval_dataset else None,
         warmup_steps=WARMUP_STEPS,
         report_to="tensorboard" if os.path.exists("tensorboard") else None,
         dataloader_pin_memory=True,
@@ -173,7 +162,6 @@ def main():
         model=model,
         args=training_args,
         train_dataset=train_dataset,
-        eval_dataset=eval_dataset,
         tokenizer=tokenizer,
         max_seq_length=MAX_LENGTH,
         dataset_text_field="text",  # 指定包含文本的字段
@@ -218,4 +206,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
 
