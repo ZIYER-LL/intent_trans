@@ -109,6 +109,16 @@ def main():
     # 设置随机种子
     set_seed(SEED)
     
+    # 检查GPU可用性
+    if torch.cuda.is_available():
+        print(f"✅ GPU可用！设备数量: {torch.cuda.device_count()}")
+        for i in range(torch.cuda.device_count()):
+            print(f"  GPU {i}: {torch.cuda.get_device_name(i)}")
+            print(f"    显存: {torch.cuda.get_device_properties(i).total_memory / 1024**3:.2f} GB")
+    else:
+        print("⚠️  警告：未检测到GPU，将使用CPU训练（速度会很慢）")
+        print("   建议使用GPU进行训练")
+    
     # 创建输出目录
     output_dir = Path(OUTPUT_DIR)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -127,12 +137,22 @@ def main():
     
     # 加载模型
     print(f"正在加载模型: {MODEL_DIR}")
+    # device_map="auto" 会自动将模型分配到可用的GPU上
+    # 如果有多个GPU，会自动进行模型并行
     model = AutoModelForCausalLM.from_pretrained(
         MODEL_DIR,
         torch_dtype=torch.float16 if FP16 else torch.float32,
-        device_map="auto",
+        device_map="auto",  # 自动使用GPU，如果有多个GPU会自动分配
         trust_remote_code=True
     )
+    
+    # 打印模型所在的设备
+    if hasattr(model, 'hf_device_map'):
+        print("模型设备分配:")
+        for name, device in model.hf_device_map.items():
+            print(f"  {name}: {device}")
+    elif torch.cuda.is_available():
+        print(f"模型已加载到: {next(model.parameters()).device}")
     
     # 启用梯度检查点
     if GRADIENT_CHECKPOINTING:
@@ -252,4 +272,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
 
