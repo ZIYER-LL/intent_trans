@@ -1,0 +1,186 @@
+[{"input": "视频会议经常卡顿，请帮我建立一个更稳定的视频会议网络。", "intent_type": "slice_create", "service_type": "realtime_video"},
+{"input": "我需要一个单独的视频通话切片，画面要清晰。", "intent_type": "slice_create", "service_type": "realtime_video"},
+{"input": "开一个实时视频的专用网络吧，会议太卡了。", "intent_type": "slice_create", "service_type": "realtime_video"},
+{"input": "语音聊天老掉线，开个语音业务切片吧。", "intent_type": "slice_create", "service_type": "realtime_voice_call"},
+{"input": "我想要清晰通话的网络，用一个语音专用通道。", "intent_type": "slice_create", "service_type": "realtime_voice_call"},
+
+{"input": "VR 游戏晕得厉害，估计延迟高，给我建个 XR 切片。", "intent_type": "slice_create", "service_type": "realtime_xr_gaming"},
+{"input": "AR 游戏动作跟不上，换一个低时延 XR 网络。", "intent_type": "slice_create", "service_type": "realtime_xr_gaming"},
+
+{"input": "我要开直播，帮我建个稳定的直播推流切片。", "intent_type": "slice_create", "service_type": "streaming_live"},
+{"input": "直播传输老是延迟，给我一个新的直播切片。", "intent_type": "slice_create", "service_type": "streaming_live"},
+
+{"input": "看电影老缓冲，把流媒体播放业务拉个专用切片。", "intent_type": "slice_create", "service_type": "streaming_video"},
+{"input": "点播视频画面糊，请开一个 streaming video 的切片。", "intent_type": "slice_create", "service_type": "streaming_video"},
+
+{"input": "传感器上传有延迟，帮我创建 IoT 数据上报的切片。", "intent_type": "slice_create", "service_type": "iot_sensor"},
+{"input": "工厂数据上报不稳定，配置 IoT 的专用通道。", "intent_type": "slice_create", "service_type": "iot_sensor"},
+
+{"input": "机械臂控制偶尔卡顿，得用 URLLC 的那种低延迟切片。", "intent_type": "slice_create", "service_type": "urllc_control"},
+{"input": "机器人动作延迟超标，帮我建一个控制用的 URLLC 网络。", "intent_type": "slice_create", "service_type": "urllc_control"},
+
+{"input": "直播卡成 PPT 了，帮我把直播业务换一条更快的路径。", "intent_type": "route_preference", "service_type": "streaming_live"},
+{"input": "电影播放老是缓冲，我想让点播视频走高带宽通道。", "intent_type": "route_preference", "service_type": "streaming_video"},
+{"input": "传感器数据不及时上来，把 IoT 切到低延迟路径。", "intent_type": "route_preference", "service_type": "iot_sensor"},
+{"input": "工控控制链路必须更快，把 URLLC 控制业务切到最快路线。", "intent_type": "route_preference", "service_type": "urllc_control"},
+{"input": "网页加载慢，让 Internet Access 走高带宽路线吧。", "intent_type": "route_preference", "service_type": "internet_access"},
+
+{"input": "视频会议老糊，帮我提升实时视频的 QoS 参数。", "intent_type": "slice_qos_modify", "service_type": "realtime_video"},
+{"input": "我想让视频通话再清晰点，调一下实时视频的网络质量。", "intent_type": "slice_qos_modify", "service_type": "realtime_video"},
+
+{"input": "通话延迟大，能不能调一下语音业务的 QoS？", "intent_type": "slice_qos_modify", "service_type": "realtime_voice_call"},
+{"input": "说话一卡一卡，优化下语音网络配置吧。", "intent_type": "slice_qos_modify", "service_type": "realtime_voice_call"},
+
+{"input": "XR 游戏掉帧严重，提高一下 XR 的网络质量。", "intent_type": "slice_qos_modify", "service_type": "realtime_xr_gaming"},
+{"input": "VR 游戏时延太高，调调 XR 切片配置。", "intent_type": "slice_qos_modify", "service_type": "realtime_xr_gaming"},
+
+{"input": "直播推流断断续续，麻烦提升一下直播 QoS。", "intent_type": "slice_qos_modify", "service_type": "streaming_live"},
+{"input": "开直播时画面模糊，调一下推流业务的网络质量。", "intent_type": "slice_qos_modify", "service_type": "streaming_live"},
+
+{"input": "电影看着不清晰，提升 streaming video 的 QoS 吧。", "intent_type": "slice_qos_modify", "service_type": "streaming_video"},
+{"input": "点播服务太慢，调一下流媒体播放 QoS。", "intent_type": "slice_qos_modify", "service_type": "streaming_video"},
+
+{"input": "传感器上报不稳，帮我把 IoT 切片的 QoS 调强一点。", "intent_type": "slice_qos_modify", "service_type": "iot_sensor"},
+{"input": "工厂的数据上传抖动很大，优化下 IoT QoS。", "intent_type": "slice_qos_modify", "service_type": "iot_sensor"},
+
+{"input": "控制链路偶尔延迟，需要提升 URLLC 的 QoS。", "intent_type": "slice_qos_modify", "service_type": "urllc_control"},
+{"input": "机器人控制有时不跟手，把 URLLC 优化一下。", "intent_type": "slice_qos_modify", "service_type": "urllc_control"},
+
+{"input": "把视频业务限制在视频切片内，别让它乱跑。", "intent_type": "access_control", "service_type": "realtime_video"},
+{"input": "视频会议流量不能进入别的切片，限制一下权限。", "intent_type": "access_control", "service_type": "realtime_video"},
+
+{"input": "语音通话的业务请隔离开，不要进视频网络。", "intent_type": "access_control", "service_type": "realtime_voice_call"},
+{"input": "语音数据只能走语音切片，别串线。", "intent_type": "access_control", "service_type": "realtime_voice_call"},
+
+{"input": "XR 游戏的流量要单独隔离，别占用别的业务带宽。", "intent_type": "access_control", "service_type": "realtime_xr_gaming"},
+{"input": "XR 流量不许混入其他切片。", "intent_type": "access_control", "service_type": "realtime_xr_gaming"},
+
+{"input": "直播流量要隔离，只能走直播通道。", "intent_type": "access_control", "service_type": "streaming_live"},
+{"input": "推流的数据不能跑到别的业务上，限制一下。", "intent_type": "access_control", "service_type": "streaming_live"},
+
+{"input": "点播视频业务限制访问，只能走自己的切片。", "intent_type": "access_control", "service_type": "streaming_video"},
+{"input": "流媒体播放别乱用通道，必须隔离。", "intent_type": "access_control", "service_type": "streaming_video"},
+
+{"input": "IoT 上报只让它在 IoT 区域里跑。", "intent_type": "access_control", "service_type": "iot_sensor"},
+{"input": "传感器设备的流量要隔离，不准进入其他切片。", "intent_type": "access_control", "service_type": "iot_sensor"},
+
+{"input": "机器人控制的链路必须隔离，只许走 URLLC 切片。", "intent_type": "access_control", "service_type": "urllc_control"},
+{"input": "控制业务不能和别的混在一起，严格隔离。", "intent_type": "access_control", "service_type": "urllc_control"},
+
+{"input": "上网流量只能走互联网切片，别和其他业务抢路。", "intent_type": "access_control", "service_type": "internet_access"},
+{"input": "web 浏览流量请隔离，不要污染其他业务。", "intent_type": "access_control", "service_type": "internet_access"},    
+
+{"input": "视频会议突然开始卡了，感觉不像是带宽问题，换个更快的路由试试。", "intent_type": "route_preference", "service_type": "realtime_video"},
+{"input": "视频有点慢，我也说不上来，你帮我调成走低延迟线路吧。", "intent_type": "route_preference", "service_type": "realtime_video"},
+
+{"input": "电话打着打着就延迟了，能换条靠谱点的线路吗？", "intent_type": "route_preference", "service_type": "realtime_voice_call"},
+{"input": "语音说话总滞后半拍，我想让它走稳定路由。", "intent_type": "route_preference", "service_type": "realtime_voice_call"},
+
+{"input": "XR 游戏不跟手，感觉像绕了远路，给我换最快的那条。", "intent_type": "route_preference", "service_type": "realtime_xr_gaming"},
+{"input": "VR 卡到怀疑人生，麻烦你给我切个低延迟路径。", "intent_type": "route_preference", "service_type": "realtime_xr_gaming"},
+
+{"input": "直播间一卡一卡，把直播推流切到高带宽线路上吧。", "intent_type": "route_preference", "service_type": "streaming_live"},
+{"input": "主播那边画面延迟很大，帮我换个推流通道。", "intent_type": "route_preference", "service_type": "streaming_live"},
+
+{"input": "电影一直在加载圈圈，我怀疑线路不够快。", "intent_type": "route_preference", "service_type": "streaming_video"},
+{"input": "视频播放断断续续，请让它走更靠谱的链路。", "intent_type": "route_preference", "service_type": "streaming_video"},
+
+{"input": "传感器数据慢半拍，感觉需要换条 IoT 的快线路。", "intent_type": "route_preference", "service_type": "iot_sensor"},
+{"input": "物联网设备上传一直延迟高，应该把它切到低时延路径。", "intent_type": "route_preference", "service_type": "iot_sensor"},
+
+{"input": "机械臂执行动作有延后，麻烦把 URLLC 控制业务切到最快线路。", "intent_type": "route_preference", "service_type": "urllc_control"},
+{"input": "机器指令来不及响应，把控制链路换成 URLLC 优先通道。", "intent_type": "route_preference", "service_type": "urllc_control"},
+
+{"input": "上网像蜗牛一样，能不能换个带宽更大的路由？", "intent_type": "route_preference", "service_type": "internet_access"},
+{"input": "网页打开又慢又卡，你帮我切条更带劲的线路吧。", "intent_type": "route_preference", "service_type": "internet_access"},
+
+{"input": "我想让视频会议更稳定一点，把实时视频 QoS 提上去。", "intent_type": "slice_qos_modify", "service_type": "realtime_video"},
+{"input": "开会的时候声音画面对不上，调一下实时视频的 QoS 吧。", "intent_type": "slice_qos_modify", "service_type": "realtime_video"},
+
+{"input": "语音通话模糊得很，请把语音业务的 QoS 调高一点。", "intent_type": "slice_qos_modify", "service_type": "realtime_voice_call"},
+{"input": "打电话老是断断续续，应该是 QoS 不够，帮忙调一下。", "intent_type": "slice_qos_modify", "service_type": "realtime_voice_call"},
+
+{"input": "XR 游戏画面像幻灯片一样，优化一下 XR 的网络质量。", "intent_type": "slice_qos_modify", "service_type": "realtime_xr_gaming"},
+{"input": "动作和画面不同步，让 XR QoS 高一点吧。", "intent_type": "slice_qos_modify", "service_type": "realtime_xr_gaming"},
+
+{"input": "直播推流清晰度不够，提升一下直播业务的 QoS。", "intent_type": "slice_qos_modify", "service_type": "streaming_live"},
+{"input": "主播画面糊得看不清，增强一下 streaming_live 网络质量。", "intent_type": "slice_qos_modify", "service_type": "streaming_live"},
+
+{"input": "视频会议怎么突然卡成马赛克了？你帮我把视频业务 QoS 调一调呗。", "intent_type": "slice_qos_modify", "service_type": "realtime_video"},
+{"input": "开会画面糊得像水墨画，调下实时视频的参数吧。", "intent_type": "slice_qos_modify", "service_type": "realtime_video"},
+
+{"input": "通话这边突然变得听不清楚，你看能不能把语音 QoS 稍微调高点？", "intent_type": "slice_qos_modify", "service_type": "realtime_voice_call"},
+{"input": "电话延迟很奇怪，请升级一下语音业务的网络质量。", "intent_type": "slice_qos_modify", "service_type": "realtime_voice_call"},
+
+{"input": "XR 游戏动作卡两下，我猜 QoS 不够？你帮我提下 XR 的配置吧。", "intent_type": "slice_qos_modify", "service_type": "realtime_xr_gaming"},
+{"input": "VR 晕得厉害，估计是网络问题，调调 QoS。", "intent_type": "slice_qos_modify", "service_type": "realtime_xr_gaming"},
+
+{"input": "直播推流莫名其妙模糊，请调一下直播 QoS。", "intent_type": "slice_qos_modify", "service_type": "streaming_live"},
+{"input": "推流有延迟，你把直播 QoS 设高点试试？", "intent_type": "slice_qos_modify", "service_type": "streaming_live"},
+
+{"input": "点播电影卡半天，你把 streaming video 的 QoS 提一下吧。", "intent_type": "slice_qos_modify", "service_type": "streaming_video"},
+{"input": "看剧一卡一卡，是不是 QoS 设置不够？调一下。", "intent_type": "slice_qos_modify", "service_type": "streaming_video"},
+
+{"input": "传感器数据掉包很严重，麻烦加强 IoT 的 QoS。", "intent_type": "slice_qos_modify", "service_type": "iot_sensor"},
+{"input": "工厂上报数据一直跳变，应该调整一下 IoT 配置。", "intent_type": "slice_qos_modify", "service_type": "iot_sensor"},
+
+{"input": "机械臂动作慢半拍，应该是控制 QoS 不够，改一下。", "intent_type": "slice_qos_modify", "service_type": "urllc_control"},
+{"input": "控制链路怎么变慢了？帮我提升一下 URLLC QoS。", "intent_type": "slice_qos_modify", "service_type": "urllc_control"},
+
+{"input": "我想开一个实时视频切片，会议卡得不行。", "intent_type": "slice_create", "service_type": "realtime_video"},
+{"input": "视频画面糊得看不清，请建个新的视频会议切片。", "intent_type": "slice_create", "service_type": "realtime_video"},
+
+{"input": "电话那边老掉线，给我创建一个语音业务切片吧。", "intent_type": "slice_create", "service_type": "realtime_voice_call"},
+{"input": "打电话不稳定，我想开个语音专用通道。", "intent_type": "slice_create", "service_type": "realtime_voice_call"},
+
+{"input": "XR 游戏不能再这么卡下去了，给我弄个 XR 切片。", "intent_type": "slice_create", "service_type": "realtime_xr_gaming"},
+{"input": "VR 玩几分钟就卡，请开一个新的 XR 切片。", "intent_type": "slice_create", "service_type": "realtime_xr_gaming"},
+
+{"input": "我需要一个直播切片，推流延迟真的太高了。", "intent_type": "slice_create", "service_type": "streaming_live"},
+{"input": "直播画面经常糊，给我建个独立的推流切片。", "intent_type": "slice_create", "service_type": "streaming_live"},
+
+{"input": "开会的时候突然卡得像 PPT 一样，你帮我想办法让视频业务走稳一点的……什么路径都行。", "intent_type": "route_preference", "service_type": "realtime_video"},
+{"input": "视频好像走了奇怪的线路？反正延迟大，你把它切换成低延迟线路吧。", "intent_type": "route_preference", "service_type": "realtime_video"},
+
+{"input": "说话老是延迟到对面反应不过来，语音业务帮我换条稳点的路行不行？", "intent_type": "route_preference", "service_type": "realtime_voice_call"},
+{"input": "通话像跨星系延迟一样，你帮我调个更顺畅的线路吧。", "intent_type": "route_preference", "service_type": "realtime_voice_call"},
+
+{"input": "XR 游戏卡得想退游，帮我丢到最低延迟路径去。", "intent_type": "route_preference", "service_type": "realtime_xr_gaming"},
+{"input": "VR 老是延迟很怪，可能路由绕路了，你帮我选最快的那条。", "intent_type": "route_preference", "service_type": "realtime_xr_gaming"},
+
+{"input": "主播画面拖影太重了，我也不知道啥原因，反正换条推流路径试试看。", "intent_type": "route_preference", "service_type": "streaming_live"},
+{"input": "直播一顿顿的，感觉像走了条土路，帮我切到好点的通道。", "intent_type": "route_preference", "service_type": "streaming_live"},
+
+{"input": "电影放着放着就卡了两三秒，你帮我找条特别适合 streaming 的线路吧。", "intent_type": "route_preference", "service_type": "streaming_video"},
+{"input": "视频加载半天，是不是线路太差？你换个高带宽路径呗。", "intent_type": "route_preference", "service_type": "streaming_video"},
+
+{"input": "传感器数据跳得厉害，我猜路由乱跑了，你帮我调一下吧。", "intent_type": "route_preference", "service_type": "iot_sensor"},
+{"input": "IoT 这些数据上传老慢半秒，帮我切到更稳的线路上。", "intent_type": "route_preference", "service_type": "iot_sensor"},
+
+{"input": "机械臂突然顿了一下，肯定是控制路径不对劲，你给我换 URLLC 低时延路径。", "intent_type": "route_preference", "service_type": "urllc_control"},
+{"input": "控制响应乱跳，你帮我换个稳稳当当的 URLLC 通道吧。", "intent_type": "route_preference", "service_type": "urllc_control"},
+
+{"input": "上网慢得像 2G 时代，你给我开个正常上网的通道吧，我都烦死了。", "intent_type": "slice_create", "service_type": "internet_access"},
+{"input": "浏览网页一直卡，帮我弄个专门的 Internet Access 切片，随便什么但别这么慢。", "intent_type": "slice_create", "service_type": "internet_access"},
+
+{"input": "视频会议这个 QoS 肯定不够，你帮我把参数调高点，我不懂啥参数但反正更强一点。", "intent_type": "slice_qos_modify", "service_type": "realtime_video"},
+{"input": "通话时延突然爆炸，你调一下语音 QoS 吧，我也不太懂就是感觉不太对。", "intent_type": "slice_qos_modify", "service_type": "realtime_voice_call"},
+
+{"input": "XR 游戏感觉像在时光穿梭，动作延迟巨大，你帮我提升 QoS。", "intent_type": "slice_qos_modify", "service_type": "realtime_xr_gaming"},
+{"input": "直播图像像被压缩成马赛克，你随便把 QoS 提高一点。", "intent_type": "slice_qos_modify", "service_type": "streaming_live"},
+
+{"input": "IoT 设备传回来的数据跳得很离谱，可能 QoS 配置烂了？帮我调。", "intent_type": "slice_qos_modify", "service_type": "iot_sensor"},
+
+{"input": "机器人动作延迟巨大，帮我把 URLLC 的 QoS 开到最高档。", "intent_type": "slice_qos_modify", "service_type": "urllc_control"},
+{"input": "控制链路不能乱跑，让它只能走 URLLC 切片，别乱连。", "intent_type": "access_control", "service_type": "urllc_control"},
+
+{"input": "我不希望视频会议和别的业务混用，全部隔离开，给视频业务设限制。", "intent_type": "access_control", "service_type": "realtime_video"},
+{"input": "语音流量别乱串，限制一下只能走语音那条。", "intent_type": "access_control", "service_type": "realtime_voice_call"},
+
+{"input": "XR 游戏业务请完全隔离，不要和别的抢。", "intent_type": "access_control", "service_type": "realtime_xr_gaming"},
+{"input": "流媒体播放不要混到其他切片里，限制一下 streaming video 流量。", "intent_type": "access_control", "service_type": "streaming_video"},
+
+{"input": "IoT 数据上报很敏感，把它隔离在 IoT 切片里，别出去。", "intent_type": "access_control", "service_type": "iot_sensor"},
+{"input": "上网业务也隔离一下吧，只让它走 Internet Access 那条。", "intent_type": "access_control", "service_type": "internet_access"}
+
+]
