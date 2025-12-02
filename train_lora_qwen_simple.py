@@ -1,10 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-Qwen3-4B LoRA微调脚本（简化版 - 使用SFTTrainer）
-推荐使用此版本，更简单可靠
-"""
-
 import os
 import json
 import torch
@@ -29,9 +22,9 @@ from datasets import Dataset
 # =====================
 # 配置参数
 # =====================
-MODEL_DIR = "/work/2024/zhulei/models/qwen3-4b"  # 模型路径
-TRAIN_DATA_PATH = "/work/2024/zhulei/intent-driven/train_qwen.json"  # 训练数据路径
-OUTPUT_DIR = "/work/2024/zhulei/intent-driven/outputs/qwen3-4b-lora"  # 输出目录
+MODEL_DIR = "/work/2024/zhulei/intent-driven/qwen3-4b"  # 模型路径
+TRAIN_DATA_PATH = "/work/2024/zhulei/intent-driven/train_intent_qwen.json"  # 训练数据路径
+OUTPUT_DIR = "/work/2024/zhulei/intent-driven/outputs/qwen3-4b-lora-intent"  # 输出目录
 
 # LoRA参数
 LORA_R = 8  # LoRA rank
@@ -60,39 +53,51 @@ RESUME_FROM_CHECKPOINT = None  # 从检查点恢复训练
 # =====================
 
 def load_dataset(data_path, tokenizer):
-    """加载数据集并进行tokenization"""
+    """加载数据集并格式化为文本（让SFTTrainer处理tokenization）"""
     print(f"正在加载数据集: {data_path}")
+    
+    # 检查文件是否存在
+    if not os.path.exists(data_path):
+        raise FileNotFoundError(f"训练数据文件不存在: {data_path}")
+    
     with open(data_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
     print(f"数据集大小: {len(data)} 条")
     
-    # 使用tokenizer的apply_chat_template格式化对话
-    texts = []
-    for item in data:
-        text = tokenizer.apply_chat_template(
-            item["messages"],
-            tokenize=False,
-            add_generation_prompt=False
-        )
-        texts.append(text)
+    # 验证数据格式
+    if not isinstance(data, list):
+        raise ValueError("数据格式错误：应该是列表格式")
     
-    # 进行tokenization
-    def tokenize_function(texts):
-        tokenized = tokenizer(
-            texts,
-            truncation=True,
-            max_length=MAX_LENGTH,
-            padding=False,
-            return_tensors=None
-        )
-        return tokenized
+    if len(data) > 0 and "messages" not in data[0]:
+        raise ValueError("数据格式错误：每个条目应包含'messages'字段")
     
-    # Tokenize所有文本
-    tokenized_data = tokenize_function(texts)
+    # 使用tokenizer的apply_chat_template格式化对话为文本
+    # SFTTrainer会自动处理tokenization，所以这里只格式化，不tokenize
+    formatted_data = []
+    for idx, item in enumerate(data):
+        try:
+            if "messages" not in item:
+                print(f"警告：第 {idx+1} 条数据缺少'messages'字段，已跳过")
+                continue
+            
+            # 使用apply_chat_template将messages格式化为文本
+            # tokenize=False 表示只格式化，不进行tokenization
+            text = tokenizer.apply_chat_template(
+                item["messages"],
+                tokenize=False,
+                add_generation_prompt=False
+            )
+            formatted_data.append({"text": text})
+        except Exception as e:
+            print(f"警告：处理第 {idx+1} 条数据时出错: {e}，已跳过")
+            continue
     
-    # 转换为Dataset格式
-    dataset = Dataset.from_dict(tokenized_data)
+    print(f"成功处理 {len(formatted_data)} 条数据")
+    
+    # 转换为Dataset格式，字段名为"text"
+    # SFTTrainer会读取这个"text"字段并进行tokenization
+    dataset = Dataset.from_list(formatted_data)
     
     return dataset
 
@@ -171,11 +176,18 @@ def main():
         save_safetensors=True,
     )
     
-    # 创建SFTTrainer（使用最简参数）
+    # 创建SFTTrainer
+    # SFTTrainer会自动处理tokenization，需要指定：
+    # - tokenizer: 用于tokenization
+    # - dataset_text_field: 数据集中文本字段的名称（我们用的是"text"）
+    # - max_seq_length: 最大序列长度
     trainer = SFTTrainer(
         model=model,
         args=training_args,
         train_dataset=train_dataset,
+        tokenizer=tokenizer,
+        max_seq_length=MAX_LENGTH,
+        dataset_text_field="text",  # 指定数据集中文本字段的名称
     )
     
     # 从检查点恢复（如果指定）
@@ -216,7 +228,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 
 
