@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import torch
 from datetime import datetime
@@ -47,6 +48,7 @@ GRADIENT_CHECKPOINTING = True  # 是否使用梯度检查点（节省显存）
 # 其他参数
 SEED = 42  # 随机种子
 RESUME_FROM_CHECKPOINT = None  # 从检查点恢复训练
+GPU_ID = 2  # 指定使用的GPU ID（根据nvidia-smi选择空闲的GPU，GPU 2/4/5/6/7都可用）
 
 # =====================
 # 工具函数
@@ -109,18 +111,34 @@ def main():
     # 设置随机种子
     set_seed(SEED)
     
-    # 检查GPU可用性并指定使用第一块GPU
+    # 检查GPU可用性并指定使用指定的GPU
     if torch.cuda.is_available():
-        print(f"✅ GPU可用！设备数量: {torch.cuda.device_count()}")
-        for i in range(torch.cuda.device_count()):
-            print(f"  GPU {i}: {torch.cuda.get_device_name(i)}")
-            print(f"    显存: {torch.cuda.get_device_properties(i).total_memory / 1024**3:.2f} GB")
-        # 指定使用第一块GPU (cuda:0)
-        torch.cuda.set_device(0)
-        print(f"\n🎯 指定使用第一块GPU: cuda:0 ({torch.cuda.get_device_name(0)})")
+        gpu_count = torch.cuda.device_count()
+        print(f"✅ GPU可用！设备数量: {gpu_count}")
+        for i in range(gpu_count):
+            props = torch.cuda.get_device_properties(i)
+            memory_total = props.total_memory / 1024**3
+            print(f"  GPU {i}: {props.name}")
+            print(f"    总显存: {memory_total:.2f} GB")
+            if i == GPU_ID:
+                print(f"    ⭐ 已选择此GPU")
+        
+        # 检查指定的GPU ID是否有效
+        if GPU_ID >= gpu_count:
+            print(f"⚠️  警告：指定的GPU {GPU_ID}不存在，只有{gpu_count}块GPU，将使用GPU 0")
+            selected_gpu = 0
+        else:
+            selected_gpu = GPU_ID
+        
+        # 指定使用选定的GPU
+        torch.cuda.set_device(selected_gpu)
+        print(f"\n🎯 指定使用GPU {selected_gpu}: cuda:{selected_gpu} ({torch.cuda.get_device_name(selected_gpu)})")
+        sys.stdout.flush()
     else:
         print("⚠️  警告：未检测到GPU，将使用CPU训练（速度会很慢）")
         print("   建议使用GPU进行训练")
+        selected_gpu = None
+        sys.stdout.flush()
     
     # 创建输出目录
     output_dir = Path(OUTPUT_DIR)
@@ -128,10 +146,13 @@ def main():
     
     # 加载tokenizer
     print(f"正在加载tokenizer: {MODEL_DIR}")
+    sys.stdout.flush()
     tokenizer = AutoTokenizer.from_pretrained(
         MODEL_DIR,
         trust_remote_code=True
     )
+    print("✅ Tokenizer加载完成")
+    sys.stdout.flush()
     
     # 设置pad_token
     if tokenizer.pad_token is None:
@@ -140,23 +161,39 @@ def main():
     
     # 加载模型
     print(f"正在加载模型: {MODEL_DIR}")
-    # 指定使用第一块GPU (cuda:0)
-    if torch.cuda.is_available():
-        device = "cuda:0"
-        print(f"指定使用GPU: {device} ({torch.cuda.get_device_name(0)})")
+    print("⚠️  模型加载可能需要几分钟，请耐心等待...")
+    sys.stdout.flush()
+    
+    # 指定使用选定的GPU
+    if torch.cuda.is_available() and selected_gpu is not None:
+        device = f"cuda:{selected_gpu}"
+        print(f"指定使用GPU: {device} ({torch.cuda.get_device_name(selected_gpu)})")
+        sys.stdout.flush()
+        print("开始加载模型权重...")
+        sys.stdout.flush()
+        model = AutoModelForCausalLM.from_pretrained(
+            MODEL_DIR,
+            torch_dtype=torch.float16 if FP16 else torch.float32,
+            device_map={"": device},  # 使用字典格式指定设备，修复device_map参数问题
+            trust_remote_code=True
+        )
     else:
         device = "cpu"
         print("⚠️  未检测到GPU，使用CPU")
+        sys.stdout.flush()
+        print("开始加载模型权重...")
+        sys.stdout.flush()
+        model = AutoModelForCausalLM.from_pretrained(
+            MODEL_DIR,
+            torch_dtype=torch.float32,  # CPU不支持float16
+            device_map="cpu",
+            trust_remote_code=True
+        )
     
-    model = AutoModelForCausalLM.from_pretrained(
-        MODEL_DIR,
-        torch_dtype=torch.float16 if FP16 else torch.float32,
-        device_map=device,  # 明确指定使用第一块GPU
-        trust_remote_code=True
-    )
-    
+    print("✅ 模型加载完成")
     # 打印模型所在的设备
     print(f"模型已加载到: {next(model.parameters()).device}")
+    sys.stdout.flush()
     
     # 启用梯度检查点
     if GRADIENT_CHECKPOINTING:
@@ -179,7 +216,11 @@ def main():
     model.print_trainable_parameters()
     
     # 加载训练数据
+    print("\n开始加载训练数据...")
+    sys.stdout.flush()
     train_dataset = load_dataset(TRAIN_DATA_PATH, tokenizer)
+    print("✅ 训练数据加载完成\n")
+    sys.stdout.flush()
     
     # 训练参数
     # 兼容不同版本的transformers：4.21.0+使用eval_strategy，旧版本使用evaluation_strategy
@@ -276,4 +317,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
 
