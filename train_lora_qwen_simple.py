@@ -158,37 +158,61 @@ def main():
     train_dataset = load_dataset(TRAIN_DATA_PATH, tokenizer)
     
     # 训练参数
-    training_args = TrainingArguments(
-        output_dir=str(output_dir),
-        overwrite_output_dir=True,
-        num_train_epochs=NUM_EPOCHS,
-        per_device_train_batch_size=BATCH_SIZE,
-        gradient_accumulation_steps=GRADIENT_ACCUMULATION_STEPS,
-        learning_rate=LEARNING_RATE,
-        fp16=FP16,
-        logging_steps=LOGGING_STEPS,
-        save_steps=SAVE_STEPS,
-        evaluation_strategy="no",  # 不进行评估
-        save_total_limit=3,  # 只保留最近3个检查点
-        warmup_steps=WARMUP_STEPS,
-        report_to="tensorboard" if os.path.exists("tensorboard") else None,
-        dataloader_pin_memory=True,
-        save_safetensors=True,
-    )
+    # 兼容不同版本的transformers：4.21.0+使用eval_strategy，旧版本使用evaluation_strategy
+    training_args_dict = {
+        "output_dir": str(output_dir),
+        "overwrite_output_dir": True,
+        "num_train_epochs": NUM_EPOCHS,
+        "per_device_train_batch_size": BATCH_SIZE,
+        "gradient_accumulation_steps": GRADIENT_ACCUMULATION_STEPS,
+        "learning_rate": LEARNING_RATE,
+        "fp16": FP16,
+        "logging_steps": LOGGING_STEPS,
+        "save_steps": SAVE_STEPS,
+        "save_total_limit": 3,  # 只保留最近3个检查点
+        "warmup_steps": WARMUP_STEPS,
+        "report_to": "tensorboard" if os.path.exists("tensorboard") else None,
+        "dataloader_pin_memory": True,
+        "save_safetensors": True,
+    }
+    
+    # 根据transformers版本选择正确的参数名
+    try:
+        # 尝试使用新版本的参数名（4.21.0+）
+        training_args = TrainingArguments(**training_args_dict, eval_strategy="no")
+    except TypeError:
+        # 如果失败，使用旧版本的参数名
+        training_args = TrainingArguments(**training_args_dict, evaluation_strategy="no")
     
     # 创建SFTTrainer
-    # SFTTrainer会自动处理tokenization，需要指定：
-    # - tokenizer: 用于tokenization
-    # - dataset_text_field: 数据集中文本字段的名称（我们用的是"text"）
-    # - max_seq_length: 最大序列长度
-    trainer = SFTTrainer(
-        model=model,
-        args=training_args,
-        train_dataset=train_dataset,
-        tokenizer=tokenizer,
-        max_seq_length=MAX_LENGTH,
-        dataset_text_field="text",  # 指定数据集中文本字段的名称
-    )
+    # 不同版本的trl库可能有不同的参数，这里使用兼容的方式
+    # 尝试使用新版本的参数（包含tokenizer）
+    try:
+        trainer = SFTTrainer(
+            model=model,
+            args=training_args,
+            train_dataset=train_dataset,
+            tokenizer=tokenizer,
+            max_seq_length=MAX_LENGTH,
+            dataset_text_field="text",
+        )
+    except TypeError:
+        # 如果失败，尝试不使用tokenizer参数（某些版本会自动从model获取）
+        try:
+            trainer = SFTTrainer(
+                model=model,
+                args=training_args,
+                train_dataset=train_dataset,
+                max_seq_length=MAX_LENGTH,
+                dataset_text_field="text",
+            )
+        except TypeError:
+            # 如果还是失败，使用最简参数
+            trainer = SFTTrainer(
+                model=model,
+                args=training_args,
+                train_dataset=train_dataset,
+            )
     
     # 从检查点恢复（如果指定）
     if RESUME_FROM_CHECKPOINT:
@@ -228,8 +252,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
 
