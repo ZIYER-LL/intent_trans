@@ -16,9 +16,9 @@ from peft import PeftModel
 # =====================
 # 配置参数
 # =====================
-BASE_MODEL_DIR = "/work/2024/zhulei/models/qwen3-4b"  # 基础模型路径
-LORA_MODEL_DIR = "/work/2024/zhulei/intent-driven/outputs/qwen3-4b-lora"  # LoRA模型路径
-TEST_DATA_PATH = "data/test_intent.json"  # 测试数据路径（相对于脚本运行目录）
+BASE_MODEL_DIR = "/work/2024/zhulei/intent-driven/qwen3-4b"  # 基础模型路径
+LORA_MODEL_DIR = "/work/2024/zhulei/intent-driven/outputs/qwen3-4b-lora-intent"  # LoRA模型路径
+TEST_DATA_PATH = "/work/2024/zhulei/intent-driven/test_intent.json"  # 测试数据路径（相对于脚本运行目录）
 GPU_ID = 2  # 使用的GPU ID
 
 # 推理参数
@@ -375,4 +375,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
