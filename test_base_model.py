@@ -21,10 +21,8 @@ TEST_DATA_PATH = "/work/2024/zhulei/intent-driven/test_intent.json"  # 测试数
 GPU_ID = 2  # 使用的GPU ID
 
 # 推理参数
-MAX_NEW_TOKENS = 256
-TEMPERATURE = 0.1  # 降低温度以获得更确定性的输出
-TOP_P = 0.9
-DO_SAMPLE = True
+MAX_NEW_TOKENS = 100  # 减少token数量，只需要JSON输出
+DO_SAMPLE = False  # 使用贪婪解码，更确定
 
 # =====================
 # 工具函数
@@ -68,28 +66,23 @@ def load_base_model(base_model_dir, gpu_id=0):
     return tokenizer, model
 
 def create_prompt(input_text):
-    """根据输入文本构造prompt（使用messages格式）"""
-    # 添加system prompt来明确要求输出JSON格式
-    # 注意：基础模型可能没有经过训练，需要明确的指令来引导输出格式
-    messages = [
-        {
-            "role": "system",
-            "content": "你是一个意图识别助手。根据用户需求，提取intent_type和service_type，并以JSON格式输出：{\"intent_type\": \"...\", \"service_type\": \"...\"}。只输出JSON，不要输出其他解释或推理过程。"
-        },
-        {
-            "role": "user",
-            "content": input_text
-        }
-    ]
-    return messages
+    """根据输入文本构造prompt"""
+    # 使用详细的文本prompt，明确列出所有可选值，要求只输出JSON
+    prompt = f"""任务：从用户输入中识别intent_type和service_type。
+
+可选值：
+intent_type: slice_create, slice_qos_modify, route_preference, access_control
+service_type: realtime_video, realtime_voice_call, realtime_xr_gaming, streaming_video, streaming_live, file_transfer, iot_sensor, internet_access, urllc_control
+
+用户输入：{input_text}
+
+只输出JSON，不要任何其他文字："""
+    return prompt
 
 def parse_model_output(output_text, input_text):
     """
     从模型输出中解析intent_type和service_type
-    支持多种输出格式：
-    1. JSON格式: {"intent_type": "...", "service_type": "..."}
-    2. 自然语言格式: intent_type: xxx, service_type: xxx
-    3. 其他格式
+    采用多级fallback策略：先尝试直接解析JSON，再提取JSON对象，最后使用正则提取字段
     """
     intent_type = None
     service_type = None
@@ -102,155 +95,93 @@ def parse_model_output(output_text, input_text):
         "urllc_control", "internet_access"
     ]
     
-    # 方法1: 尝试提取完整的JSON格式
-    # 匹配 { ... "intent_type": "xxx" ... "service_type": "xxx" ... }
-    json_patterns = [
-        r'\{[^{}]*"intent_type"\s*:\s*"([^"]+)"[^{}]*"service_type"\s*:\s*"([^"]+)"[^{}]*\}',
-        r'\{[^{}]*"service_type"\s*:\s*"([^"]+)"[^{}]*"intent_type"\s*:\s*"([^"]+)"[^{}]*\}',
-    ]
+    # 方法1: 尝试直接解析JSON
+    try:
+        parsed = json.loads(output_text)
+        intent_type = parsed.get("intent_type")
+        service_type = parsed.get("service_type")
+        if intent_type and service_type:
+            return intent_type, service_type
+    except:
+        pass
     
-    for pattern in json_patterns:
-        json_match = re.search(pattern, output_text, re.IGNORECASE | re.DOTALL)
-        if json_match:
-            if "intent_type" in pattern:
-                intent_type = json_match.group(1).strip()
-                service_type = json_match.group(2).strip()
-            else:
-                service_type = json_match.group(1).strip()
-                intent_type = json_match.group(2).strip()
-            break
+    # 方法2: 尝试提取第一个 { ... } 之间的内容
+    try:
+        start = output_text.find("{")
+        end = output_text.rfind("}") + 1
+        if start >= 0 and end > start:
+            json_str = output_text[start:end]
+            parsed = json.loads(json_str)
+            intent_type = parsed.get("intent_type")
+            service_type = parsed.get("service_type")
+            if intent_type and service_type:
+                return intent_type, service_type
+    except:
+        pass
     
-    # 方法2: 尝试提取单独的JSON字段
-    if intent_type is None:
-        intent_json_pattern = r'"intent_type"\s*:\s*"([^"]+)"'
-        intent_match = re.search(intent_json_pattern, output_text, re.IGNORECASE)
-        if intent_match:
-            intent_type = intent_match.group(1).strip()
+    # 方法3: 使用正则提取JSON字段
+    intent_json_pattern = r'"intent_type"\s*:\s*"([^"]+)"'
+    intent_match = re.search(intent_json_pattern, output_text, re.IGNORECASE)
+    if intent_match:
+        intent_type = intent_match.group(1).strip()
     
-    if service_type is None:
-        service_json_pattern = r'"service_type"\s*:\s*"([^"]+)"'
-        service_match = re.search(service_json_pattern, output_text, re.IGNORECASE)
-        if service_match:
-            service_type = service_match.group(1).strip()
+    service_json_pattern = r'"service_type"\s*:\s*"([^"]+)"'
+    service_match = re.search(service_json_pattern, output_text, re.IGNORECASE)
+    if service_match:
+        service_type = service_match.group(1).strip()
     
-    # 方法3: 尝试提取键值对格式 (intent_type: xxx 或 intent_type=xxx)
-    if intent_type is None:
-        intent_patterns = [
-            r'intent_type["\s:：=]+\s*([a-z_]+)',
-            r'intent["\s:：=]+\s*([a-z_]+)',
-        ]
-        for pattern in intent_patterns:
-            intent_match = re.search(pattern, output_text, re.IGNORECASE)
-            if intent_match:
-                candidate = intent_match.group(1).strip()
-                if candidate in known_intents:
-                    intent_type = candidate
-                    break
-    
-    if service_type is None:
-        service_patterns = [
-            r'service_type["\s:：=]+\s*([a-z_]+)',
-            r'service["\s:：=]+\s*([a-z_]+)',
-        ]
-        for pattern in service_patterns:
-            service_match = re.search(pattern, output_text, re.IGNORECASE)
-            if service_match:
-                candidate = service_match.group(1).strip()
-                if candidate in known_services:
-                    service_type = candidate
-                    break
-    
-    # 方法4: 在整个输出中搜索已知的值（作为最后手段）
-    if intent_type is None:
-        for intent in known_intents:
-            # 使用单词边界确保完整匹配
-            pattern = r'\b' + re.escape(intent) + r'\b'
-            if re.search(pattern, output_text, re.IGNORECASE):
-                intent_type = intent
-                break
-    
-    if service_type is None:
-        for service in known_services:
-            # 使用单词边界确保完整匹配
-            pattern = r'\b' + re.escape(service) + r'\b'
-            if re.search(pattern, output_text, re.IGNORECASE):
-                service_type = service
-                break
+    # 方法4: 验证提取的值是否在已知列表中
+    if intent_type and intent_type not in known_intents:
+        intent_type = None
+    if service_type and service_type not in known_services:
+        service_type = None
     
     return intent_type, service_type
 
 def infer(model, tokenizer, input_text):
     """对输入进行推理"""
-    # 构造messages
-    messages = create_prompt(input_text)
-    
-    # 使用tokenizer的apply_chat_template格式化
-    text = tokenizer.apply_chat_template(
-        messages,
-        tokenize=False,
-        add_generation_prompt=True
-    )
+    # 构造文本prompt（不使用messages格式）
+    prompt_text = create_prompt(input_text)
     
     # Tokenize
-    inputs = tokenizer(text, return_tensors="pt").to(model.device)
+    inputs = tokenizer(prompt_text, return_tensors="pt").to(model.device)
     
-    # 推理
+    # 推理 - 使用贪婪解码（do_sample=False）以获得更确定性的输出
     with torch.inference_mode():
         outputs = model.generate(
             **inputs,
-            max_new_tokens=MAX_NEW_TOKENS,
-            do_sample=DO_SAMPLE,
-            temperature=TEMPERATURE,
-            top_p=TOP_P,
+            max_new_tokens=100,  # 减少token数量，只需要JSON输出
+            do_sample=False,  # 使用贪婪解码，更确定
             pad_token_id=tokenizer.pad_token_id,
             eos_token_id=tokenizer.eos_token_id
         )
     
-    # 解码输出（只取新生成的部分）
-    input_length = inputs['input_ids'].shape[1]
-    generated_tokens = outputs[0][input_length:]
-    output_text = tokenizer.decode(generated_tokens, skip_special_tokens=True)
+    # 解码完整输出（包含输入和生成的部分）
+    full_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
     
-    # 截断输出：如果输出包含JSON，只保留JSON部分；否则截断到第一个换行或停止词
-    # 停止词列表（模型可能在这些词后继续生成无关内容）
-    stop_phrases = ["\n\n", "\n用户", "\n嗯", "\n好的", "\n首先", "\n我", "\n这", "\n根据", "<|endoftext|>"]
-    
-    # 方法1: 尝试提取完整的JSON对象（支持嵌套和换行）
-    # 匹配从第一个 { 开始到匹配的 } 结束的完整JSON
-    json_pattern = r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*"intent_type"[^{}]*(?:\{[^{}]*\}[^{}]*)*"service_type"[^{}]*(?:\{[^{}]*\}[^{}]*)*\}|"intent_type"[^{}]*"service_type"[^{}]*\}'
-    json_match = re.search(json_pattern, output_text, re.IGNORECASE | re.DOTALL)
-    
-    if json_match:
-        # 如果找到JSON，尝试提取完整的JSON对象
-        json_start = output_text.find('{')
-        if json_start != -1:
-            # 从第一个 { 开始，尝试找到匹配的 }
-            brace_count = 0
-            json_end = json_start
-            for i in range(json_start, min(json_start + 500, len(output_text))):  # 限制搜索范围
-                if output_text[i] == '{':
-                    brace_count += 1
-                elif output_text[i] == '}':
-                    brace_count -= 1
-                    if brace_count == 0:
-                        json_end = i + 1
-                        break
-            if brace_count == 0:
-                output_text = output_text[json_start:json_end]
-            else:
-                # 如果没找到匹配的 }，使用正则匹配的结果
-                output_text = json_match.group(0)
-        else:
-            output_text = json_match.group(0)
+    # 提取新生成的部分（去掉输入prompt）
+    # 简单方法：找到prompt的结尾，取后面的部分
+    if prompt_text in full_output:
+        output_text = full_output.split(prompt_text, 1)[1]
     else:
-        # 方法2: 在第一个停止词处截断
-        for stop_phrase in stop_phrases:
-            if stop_phrase in output_text:
-                output_text = output_text.split(stop_phrase)[0]
+        # 如果找不到prompt，取新生成的tokens
+        input_length = inputs['input_ids'].shape[1]
+        generated_tokens = outputs[0][input_length:]
+        output_text = tokenizer.decode(generated_tokens, skip_special_tokens=True)
+    
+    # 简化截断：提取第一个 { 到最后一个 } 之间的内容
+    start = output_text.find("{")
+    end = output_text.rfind("}")
+    if start >= 0 and end > start:
+        output_text = output_text[start:end+1]
+    else:
+        # 如果没有找到JSON，截断到第一个换行或合理长度
+        for stop_char in ["\n\n", "\n", "。", "，"]:
+            if stop_char in output_text:
+                output_text = output_text.split(stop_char)[0]
                 break
-        # 如果输出太长且没有找到停止词，截断到合理长度
-        if len(output_text) > 300:
-            output_text = output_text[:300]
+        if len(output_text) > 200:
+            output_text = output_text[:200]
     
     return output_text.strip()
 
@@ -311,6 +242,12 @@ def main():
     # 加载测试数据
     test_data = load_test_data(TEST_DATA_PATH)
     
+    # 只测试前10条（用于快速验证）
+    MAX_TEST_SAMPLES = 10
+    if len(test_data) > MAX_TEST_SAMPLES:
+        test_data = test_data[:MAX_TEST_SAMPLES]
+        print(f"⚠️  仅测试前 {MAX_TEST_SAMPLES} 条数据用于验证\n")
+    
     # 进行测试
     print("开始测试...")
     print("-" * 60)
@@ -327,6 +264,8 @@ def main():
             intent_pred, service_pred = parse_model_output(output_text, input_text)
         except Exception as e:
             print(f"⚠️  第 {idx} 条测试出错: {e}")
+            import traceback
+            traceback.print_exc()
             intent_pred = None
             service_pred = None
             output_text = ""
@@ -346,9 +285,15 @@ def main():
         }
         results.append(result)
         
-        # 显示进度
-        if idx % 10 == 0:
-            print(f"已测试 {idx}/{len(test_data)} 条...")
+        # 显示每条测试的详细结果
+        print(f"\n第 {idx} 条测试:")
+        print(f"  输入: {input_text}")
+        print(f"  真实值: intent_type={intent_true}, service_type={service_true}")
+        print(f"  预测值: intent_type={intent_pred}, service_type={service_pred}")
+        print(f"  模型输出: {output_text[:150]}...")
+        print(f"  结果: intent={'✓' if result['intent_correct'] else '✗'}, "
+              f"service={'✓' if result['service_correct'] else '✗'}, "
+              f"joint={'✓' if result['joint_correct'] else '✗'}")
     
     print("-" * 60)
     print("测试完成！\n")
@@ -401,6 +346,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
 
 
 
