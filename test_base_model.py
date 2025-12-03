@@ -242,12 +242,6 @@ def main():
     # 加载测试数据
     test_data = load_test_data(TEST_DATA_PATH)
     
-    # 只测试前10条（用于快速验证）
-    MAX_TEST_SAMPLES = 10
-    if len(test_data) > MAX_TEST_SAMPLES:
-        test_data = test_data[:MAX_TEST_SAMPLES]
-        print(f"⚠️  仅测试前 {MAX_TEST_SAMPLES} 条数据用于验证\n")
-    
     # 进行测试
     print("开始测试...")
     print("-" * 60)
@@ -264,8 +258,6 @@ def main():
             intent_pred, service_pred = parse_model_output(output_text, input_text)
         except Exception as e:
             print(f"⚠️  第 {idx} 条测试出错: {e}")
-            import traceback
-            traceback.print_exc()
             intent_pred = None
             service_pred = None
             output_text = ""
@@ -285,15 +277,9 @@ def main():
         }
         results.append(result)
         
-        # 显示每条测试的详细结果
-        print(f"\n第 {idx} 条测试:")
-        print(f"  输入: {input_text}")
-        print(f"  真实值: intent_type={intent_true}, service_type={service_true}")
-        print(f"  预测值: intent_type={intent_pred}, service_type={service_pred}")
-        print(f"  模型输出: {output_text[:150]}...")
-        print(f"  结果: intent={'✓' if result['intent_correct'] else '✗'}, "
-              f"service={'✓' if result['service_correct'] else '✗'}, "
-              f"joint={'✓' if result['joint_correct'] else '✗'}")
+        # 显示进度
+        if idx % 10 == 0:
+            print(f"已测试 {idx}/{len(test_data)} 条...")
     
     print("-" * 60)
     print("测试完成！\n")
@@ -346,6 +332,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
 
 
 
