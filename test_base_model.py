@@ -69,7 +69,13 @@ def load_base_model(base_model_dir, gpu_id=0):
 
 def create_prompt(input_text):
     """根据输入文本构造prompt（使用messages格式）"""
+    # 添加system prompt来明确要求输出JSON格式
+    # 注意：基础模型可能没有经过训练，需要明确的指令来引导输出格式
     messages = [
+        {
+            "role": "system",
+            "content": "你是一个意图识别助手。根据用户需求，提取intent_type和service_type，并以JSON格式输出：{\"intent_type\": \"...\", \"service_type\": \"...\"}。只输出JSON，不要输出其他解释或推理过程。"
+        },
         {
             "role": "user",
             "content": input_text
@@ -205,7 +211,48 @@ def infer(model, tokenizer, input_text):
     generated_tokens = outputs[0][input_length:]
     output_text = tokenizer.decode(generated_tokens, skip_special_tokens=True)
     
-    return output_text
+    # 截断输出：如果输出包含JSON，只保留JSON部分；否则截断到第一个换行或停止词
+    # 停止词列表（模型可能在这些词后继续生成无关内容）
+    stop_phrases = ["\n\n", "\n用户", "\n嗯", "\n好的", "\n首先", "\n我", "\n这", "\n根据", "<|endoftext|>"]
+    
+    # 方法1: 尝试提取完整的JSON对象（支持嵌套和换行）
+    # 匹配从第一个 { 开始到匹配的 } 结束的完整JSON
+    json_pattern = r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*"intent_type"[^{}]*(?:\{[^{}]*\}[^{}]*)*"service_type"[^{}]*(?:\{[^{}]*\}[^{}]*)*\}|"intent_type"[^{}]*"service_type"[^{}]*\}'
+    json_match = re.search(json_pattern, output_text, re.IGNORECASE | re.DOTALL)
+    
+    if json_match:
+        # 如果找到JSON，尝试提取完整的JSON对象
+        json_start = output_text.find('{')
+        if json_start != -1:
+            # 从第一个 { 开始，尝试找到匹配的 }
+            brace_count = 0
+            json_end = json_start
+            for i in range(json_start, min(json_start + 500, len(output_text))):  # 限制搜索范围
+                if output_text[i] == '{':
+                    brace_count += 1
+                elif output_text[i] == '}':
+                    brace_count -= 1
+                    if brace_count == 0:
+                        json_end = i + 1
+                        break
+            if brace_count == 0:
+                output_text = output_text[json_start:json_end]
+            else:
+                # 如果没找到匹配的 }，使用正则匹配的结果
+                output_text = json_match.group(0)
+        else:
+            output_text = json_match.group(0)
+    else:
+        # 方法2: 在第一个停止词处截断
+        for stop_phrase in stop_phrases:
+            if stop_phrase in output_text:
+                output_text = output_text.split(stop_phrase)[0]
+                break
+        # 如果输出太长且没有找到停止词，截断到合理长度
+        if len(output_text) > 300:
+            output_text = output_text[:300]
+    
+    return output_text.strip()
 
 def load_test_data(test_data_path):
     """加载测试数据"""
@@ -354,4 +401,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
 
