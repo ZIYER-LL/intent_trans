@@ -1,0 +1,891 @@
+[
+    {
+      "instruction": {
+        "intent_type": "slice_create",
+        "service_type": "realtime_video",
+        "user_intent": "建立一个稳定位高清的视频会议切片"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_create",
+        "service_type": "realtime_voice_call",
+        "user_intent": "语音通话要求清晰、延迟小"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_create",
+        "service_type": "realtime_xr_gaming",
+        "user_intent": "XR 游戏模式，需要极低延迟和高帧率"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_create",
+        "service_type": "streaming_video",
+        "user_intent": "希望提供稳定的高清视频点播服务"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_create",
+        "service_type": "streaming_live",
+        "user_intent": "直播推流要求高带宽低抖动"
+      }
+    },
+  
+    {
+      "instruction": {
+        "intent_type": "slice_create",
+        "service_type": "file_transfer",
+        "user_intent": "提供高速文件传输专线"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_create",
+        "service_type": "iot_sensor",
+        "user_intent": "传感器数据要实时汇报，不允许丢包"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_create",
+        "service_type": "internet_access",
+        "user_intent": "办公室网络访问需要更高吞吐量"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_create",
+        "service_type": "urllc_control",
+        "user_intent": "部署自动化机械臂必须超低延迟高可靠"
+      }
+    },
+  
+    {
+      "instruction": {
+        "intent_type": "slice_qos_modify",
+        "service_type": "realtime_video",
+        "user_intent": "需要进一步降低会议延迟"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_qos_modify",
+        "service_type": "realtime_voice_call",
+        "user_intent": "语音有回声希望优化 QoS"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_qos_modify",
+        "service_type": "realtime_xr_gaming",
+        "user_intent": "XR 渲染延迟提升，需要降 jitter"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_qos_modify",
+        "service_type": "streaming_video",
+        "user_intent": "点播卡顿，需要提升带宽"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_qos_modify",
+        "service_type": "streaming_live",
+        "user_intent": "直播延迟波动，希望稳定一些"
+      }
+    },
+  
+    {
+      "instruction": {
+        "intent_type": "slice_qos_modify",
+        "service_type": "file_transfer",
+        "user_intent": "文件传输速度不够快，需要提升吞吐量"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_qos_modify",
+        "service_type": "iot_sensor",
+        "user_intent": "传感器数据偶尔延迟，需要改善路径"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_qos_modify",
+        "service_type": "internet_access",
+        "user_intent": "网络访问速度偏慢，需要 QoS 调整"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_qos_modify",
+        "service_type": "urllc_control",
+        "user_intent": "控制链路 jitter 偏高，需要优化"
+      }
+    },
+  
+    {
+      "instruction": {
+        "intent_type": "route_preference",
+        "service_type": "realtime_video",
+        "user_intent": "视频通话希望走低拥塞路径"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "route_preference",
+        "service_type": "realtime_voice_call",
+        "user_intent": "语音链路要求最低延迟路径"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "route_preference",
+        "service_type": "realtime_xr_gaming",
+        "user_intent": "XR 游戏走最大带宽路径以减少掉帧"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "route_preference",
+        "service_type": "streaming_video",
+        "user_intent": "视频点播尽可能选择低抖动路径"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "route_preference",
+        "service_type": "streaming_live",
+        "user_intent": "直播推流走稳定路线"
+      }
+    },
+  
+    {
+      "instruction": {
+        "intent_type": "route_preference",
+        "service_type": "file_transfer",
+        "user_intent": "大文件要走高吞吐的路径"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "route_preference",
+        "service_type": "iot_sensor",
+        "user_intent": "关键传感器数据走最可靠路径"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "route_preference",
+        "service_type": "internet_access",
+        "user_intent": "上网访问需要选择低拥塞路由"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "route_preference",
+        "service_type": "urllc_control",
+        "user_intent": "机器人控制必须走最短路径"
+      }
+    },
+  
+    {
+      "instruction": {
+        "intent_type": "access_control",
+        "service_type": "realtime_video",
+        "user_intent": "禁止未授权用户加入视频会议"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "access_control",
+        "service_type": "realtime_voice_call",
+        "user_intent": "限制访客通话权限"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "access_control",
+        "service_type": "realtime_xr_gaming",
+        "user_intent": "普通用户不能占用 XR 高带宽资源"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "access_control",
+        "service_type": "streaming_video",
+        "user_intent": "未付费用户不能观看高清视频"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "access_control",
+        "service_type": "streaming_live",
+        "user_intent": "禁止低权限终端开启推流"
+      }
+    },
+  
+    {
+      "instruction": {
+        "intent_type": "access_control",
+        "service_type": "file_transfer",
+        "user_intent": "访客不能使用高速文件传输"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "access_control",
+        "service_type": "iot_sensor",
+        "user_intent": "非关键节点不能占用高可靠通道"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "access_control",
+        "service_type": "internet_access",
+        "user_intent": "需要限制不可信设备的上网权限"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "access_control",
+        "service_type": "urllc_control",
+        "user_intent": "禁止非工业设备接入 URLLC 控制链路"
+      }
+    },
+  
+    {
+      "instruction": {
+        "intent_type": "slice_create",
+        "service_type": "streaming_live",
+        "user_intent": "建立一条推流更稳定的直播专线"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "slice_qos_modify",
+        "service_type": "file_transfer",
+        "user_intent": "提高大文件下载速度"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "route_preference",
+        "service_type": "iot_sensor",
+        "user_intent": "让传感器流选择低抖动路径"
+      }
+    },
+    {
+      "instruction": {
+        "intent_type": "access_control",
+        "service_type": "realtime_voice_call",
+        "user_intent": "不能让访客占用语音线路带宽"
+      }
+    },
+    {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "realtime_video",
+          "user_intent": "需要一个保证视频会议清晰度和稳定性的切片"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "realtime_voice_call",
+          "user_intent": "为客服热线建立低延迟语音通话专线"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "realtime_xr_gaming",
+          "user_intent": "创建一条 XR 互动对战用的低时延通道"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "streaming_video",
+          "user_intent": "建立可以稳定播放高清视频的服务切片"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "streaming_live",
+          "user_intent": "希望搭建一个高带宽直播推流专线"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "file_transfer",
+          "user_intent": "需要一条大文件高速传输切片"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "iot_sensor",
+          "user_intent": "实时传感器上报需要稳定可靠的网络通道"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "internet_access",
+          "user_intent": "建立一个高吞吐、低丢包的办公上网切片"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "urllc_control",
+          "user_intent": "工业控制需要一条 URLLC 稳定通道"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "realtime_video",
+          "user_intent": "视频延迟偏高，需要进一步优化 QoS"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "realtime_voice_call",
+          "user_intent": "语音丢包率偏高，希望调整参数改善质量"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "realtime_xr_gaming",
+          "user_intent": "XR 场景渲染推迟，需要降低 jitter"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "streaming_video",
+          "user_intent": "请求提高视频点播带宽，减少缓冲"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "streaming_live",
+          "user_intent": "直播画面忽快忽慢，希望稳定吞吐"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "file_transfer",
+          "user_intent": "下载速度不够快，希望更高带宽"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "iot_sensor",
+          "user_intent": "传感器报告时间不稳定，需要低延迟优化"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "internet_access",
+          "user_intent": "上网速度时快时慢，需要调整 QoS"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "urllc_control",
+          "user_intent": "工业控制 jitter 偏大，需要紧急调整"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "realtime_video",
+          "user_intent": "视频会议业务希望选择最低延迟路径"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "realtime_voice_call",
+          "user_intent": "语音业务希望通过低抖动路径传输"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "realtime_xr_gaming",
+          "user_intent": "XR 游戏请求选择最大带宽路径以保证帧率"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "streaming_video",
+          "user_intent": "视频点播走稳定吞吐路径"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "streaming_live",
+          "user_intent": "直播推流需走低丢包路径"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "file_transfer",
+          "user_intent": "希望文件传输走吞吐最高的链路"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "iot_sensor",
+          "user_intent": "传感器流量走高可靠链路"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "internet_access",
+          "user_intent": "上网业务应走低拥塞路径"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "urllc_control",
+          "user_intent": "控制指令走最短路径的要求"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "realtime_video",
+          "user_intent": "限制未经授权的设备加入视频会议"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "realtime_voice_call",
+          "user_intent": "不允许访客接入语音通话系统"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "realtime_xr_gaming",
+          "user_intent": "禁止普通终端占用 XR 游戏高带宽资源"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "streaming_video",
+          "user_intent": "付费会员才能访问高清视频资源"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "streaming_live",
+          "user_intent": "限制低权限用户发起直播推流"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "file_transfer",
+          "user_intent": "禁止访客使用高吞吐文件传输功能"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "iot_sensor",
+          "user_intent": "非关键节点不能占用高优先级链路"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "internet_access",
+          "user_intent": "不可信终端的网络权限应受限"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "urllc_control",
+          "user_intent": "非工业级设备禁止接入 URLLC 通道"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "realtime_video",
+          "user_intent": "会议清晰度下降，希望增强网络参数"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "streaming_video",
+          "user_intent": "点播加载时间过长，需优化"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "iot_sensor",
+          "user_intent": "传感数据偶尔延迟，希望优化 QoS"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "urllc_control",
+          "user_intent": "控制信号抖动异常，需要紧急优化"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "streaming_live",
+          "user_intent": "推流走低 jitter 路径"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "internet_access",
+          "user_intent": "限制未认证设备的上网能力"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "realtime_video",
+          "user_intent": "需要一个用于跨区域视频会议的稳定切片"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "realtime_voice_call",
+          "user_intent": "为语音客服中心设置专用通话线路"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "realtime_xr_gaming",
+          "user_intent": "创建适用于 XR 对战模式的高速低延迟切片"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "streaming_video",
+          "user_intent": "希望支持高清点播视频业务的网络切片"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "streaming_live",
+          "user_intent": "需要一个直播推流质量稳定的切片"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "file_transfer",
+          "user_intent": "大规模数据分发需要高速传输切片"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "iot_sensor",
+          "user_intent": "大量传感器需要实时可靠的上报链路"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "internet_access",
+          "user_intent": "企业办公网需要高带宽的上网切片"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "urllc_control",
+          "user_intent": "工厂机器人必须使用超高可靠控制链路"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "realtime_video",
+          "user_intent": "会议画面延迟上升，需要提升 QoS 配置"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "realtime_voice_call",
+          "user_intent": "通话偶有杂音，希望改善 jitter 表现"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "realtime_xr_gaming",
+          "user_intent": "XR 游戏加载出现延迟，需要增强链路质量"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "streaming_video",
+          "user_intent": "视频点播清晰度不足，需要提升带宽"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "streaming_live",
+          "user_intent": "直播延迟波动，需调整 QoS 稳定输出"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "file_transfer",
+          "user_intent": "数据传输速率未达预期，需要优化参数"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "iot_sensor",
+          "user_intent": "传感器上报偶尔丢包，希望提升可靠性"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "internet_access",
+          "user_intent": "公司网络访问质量下降，需要修改 QoS"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "urllc_control",
+          "user_intent": "工业控制信号易受抖动影响，需要加固 QoS"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "realtime_video",
+          "user_intent": "需要将视频业务路由到低延迟路径"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "realtime_voice_call",
+          "user_intent": "语音通话希望选择最低 jitter 的路线"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "realtime_xr_gaming",
+          "user_intent": "XR 游戏的流量应走带宽最大的路径"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "streaming_video",
+          "user_intent": "点播视频希望走吞吐更高的链路"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "streaming_live",
+          "user_intent": "希望直播数据走丢包率最低的路径"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "file_transfer",
+          "user_intent": "文件传输需要路由到高吞吐链路"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "iot_sensor",
+          "user_intent": "关键传感数据希望走最稳定路径"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "internet_access",
+          "user_intent": "希望上网业务走低拥塞路径以提升体验"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "urllc_control",
+          "user_intent": "机器人控制必须走最短路径的要求"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "realtime_video",
+          "user_intent": "限制普通用户加入高级别视频会议"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "realtime_voice_call",
+          "user_intent": "禁止访客占用语音通话系统资源"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "realtime_xr_gaming",
+          "user_intent": "限制非 VIP 访问 XR 高质量通道"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "streaming_video",
+          "user_intent": "只有付费用户才能访问高清视频内容"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "streaming_live",
+          "user_intent": "不允许低权限用户开启直播推流"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "file_transfer",
+          "user_intent": "限制外部用户使用高速文件传输链路"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "iot_sensor",
+          "user_intent": "非关键传感器不能占用高可靠通道"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "internet_access",
+          "user_intent": "限制未知设备访问企业网络资源"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "urllc_control",
+          "user_intent": "未授权终端禁止访问 URLLC 业务流"
+        }
+      },
+    
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "streaming_video",
+          "user_intent": "为在线视频教学提供一个稳定点播切片"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_create",
+          "service_type": "iot_sensor",
+          "user_intent": "高频率传感器上报需要一个低抖动的通道"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "slice_qos_modify",
+          "service_type": "realtime_xr_gaming",
+          "user_intent": "XR 对战模式延迟偏高，需要改进 QoS 参数"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "route_preference",
+          "service_type": "streaming_video",
+          "user_intent": "视频点播业务希望走高吞吐网络路径"
+        }
+      },
+      {
+        "instruction": {
+          "intent_type": "access_control",
+          "service_type": "internet_access",
+          "user_intent": "限制低安全等级设备访问内部网络"
+        }
+      }
+  ]
+  
