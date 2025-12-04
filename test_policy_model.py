@@ -17,10 +17,10 @@ from peft import PeftModel
 # =====================
 # 配置参数
 # =====================
-BASE_MODEL_DIR = "/work/2024/zhulei/models/qwen3-4b"  # 基础模型路径
+BASE_MODEL_DIR = "/work/2024/zhulei/intent-driven/qwen3-4b"  # 基础模型路径
 LORA_MODEL_DIR = "/work/2024/zhulei/intent-driven/outputs/qwen3-4b-lora-policy"  # LoRA模型路径
-TEST_DATA_PATH = "data/train_policy.json"  # 测试数据路径（可以从训练数据中划分一部分作为测试集）
-GPU_ID = 2  # 使用的GPU ID
+TEST_DATA_PATH = "/work/2024/zhulei/intent-driven/test_policy.json"  # 测试数据路径
+GPU_ID = 7  # 使用的GPU ID
 
 # 推理参数
 MAX_NEW_TOKENS = 512
@@ -393,16 +393,20 @@ def load_test_data(test_data_path):
 def extract_policy_from_data(item):
     """从数据项中提取用户意图、服务类型和期望的policy"""
     service_type = None
+    policy = {}
     
-    if "instruction" in item and "output" in item:
-        # 格式: {instruction: {user_intent: ..., service_type: ...}, output: {policy: {...}}}
+    if "instruction" in item:
+        # 格式: {instruction: {user_intent: ..., service_type: ..., intent_type: ...}}
         user_intent = item["instruction"].get("user_intent", "")
         service_type = item["instruction"].get("service_type", None)
-        policy = item["output"].get("policy", {})
+        intent_type = item["instruction"].get("intent_type", None)
+        
+        # 如果有output字段，提取期望的policy（用于有标准答案的情况）
+        if "output" in item:
+            policy = item["output"].get("policy", {})
     elif "messages" in item:
         # 格式: {messages: [{role: "user", content: ...}, {role: "assistant", content: ...}]}
         user_intent = ""
-        policy = {}
         for msg in item["messages"]:
             if msg["role"] == "user":
                 user_intent = msg["content"]
@@ -438,7 +442,7 @@ def calculate_metrics(results):
     parse_success = sum(1 for r in results if r['policy_pred'] is not None)
     parse_rate = parse_success / total if total > 0 else 0
     
-    # 初始化每个参数的误差列表
+    # 初始化每个参数的误差列表（仅当有真实值时计算）
     param_errors = {param: {'mae': [], 'mse': [], 'relative_error': []} for param in POLICY_PARAMS}
     
     # 初始化合规性统计
@@ -446,7 +450,8 @@ def calculate_metrics(results):
         'total_with_service_type': 0,
         'total_compliant_policies': 0,
         'param_compliance': {param: {'compliant': 0, 'total': 0} for param in POLICY_PARAMS},
-        'service_type_stats': {}
+        'service_type_stats': {},
+        'intent_type_stats': {}
     }
     
     # 计算每个样本的误差和合规性
@@ -454,9 +459,10 @@ def calculate_metrics(results):
         if result['policy_pred'] is None:
             continue
         
-        policy_true = result['policy_true']
+        policy_true = result.get('policy_true', {})
         policy_pred = result['policy_pred']
         service_type = result.get('service_type')
+        intent_type = result.get('intent_type')
         
         # 检查预测policy的合规性
         if service_type:
@@ -484,21 +490,34 @@ def calculate_metrics(results):
                 compliance_stats['service_type_stats'][service_type]['total'] += 1
                 if pred_compliance.get('all_compliant', False):
                     compliance_stats['service_type_stats'][service_type]['compliant'] += 1
+                
+                # 按意图类型统计
+                if intent_type:
+                    if intent_type not in compliance_stats['intent_type_stats']:
+                        compliance_stats['intent_type_stats'][intent_type] = {
+                            'total': 0,
+                            'compliant': 0
+                        }
+                    compliance_stats['intent_type_stats'][intent_type]['total'] += 1
+                    if pred_compliance.get('all_compliant', False):
+                        compliance_stats['intent_type_stats'][intent_type]['compliant'] += 1
         
-        for param in POLICY_PARAMS:
-            if param in policy_true and param in policy_pred:
-                true_val = float(policy_true[param])
-                pred_val = float(policy_pred[param])
-                
-                # 计算绝对误差
-                abs_error = abs(pred_val - true_val)
-                param_errors[param]['mae'].append(abs_error)
-                param_errors[param]['mse'].append(abs_error ** 2)
-                
-                # 计算相对误差（避免除零）
-                if true_val != 0:
-                    rel_error = abs_error / abs(true_val)
-                    param_errors[param]['relative_error'].append(rel_error)
+        # 计算误差（仅当有真实值时）
+        if policy_true and len(policy_true) > 0:
+            for param in POLICY_PARAMS:
+                if param in policy_true and param in policy_pred:
+                    true_val = float(policy_true[param])
+                    pred_val = float(policy_pred[param])
+                    
+                    # 计算绝对误差
+                    abs_error = abs(pred_val - true_val)
+                    param_errors[param]['mae'].append(abs_error)
+                    param_errors[param]['mse'].append(abs_error ** 2)
+                    
+                    # 计算相对误差（避免除零）
+                    if true_val != 0:
+                        rel_error = abs_error / abs(true_val)
+                        param_errors[param]['relative_error'].append(rel_error)
     
     # 计算每个参数的平均指标
     metrics = {
@@ -526,49 +545,57 @@ def calculate_metrics(results):
                 'valid_samples': 0
             }
     
-    # 计算整体policy的相似度（使用余弦相似度或欧氏距离）
+    # 计算整体policy的相似度（使用余弦相似度或欧氏距离，仅当有真实值时）
     policy_similarities = []
-    for result in results:
-        if result['policy_pred'] is None:
-            continue
-        
-        policy_true = result['policy_true']
-        policy_pred = result['policy_pred']
-        
-        # 提取所有参数的向量
-        true_vec = []
-        pred_vec = []
-        for param in POLICY_PARAMS:
-            if param in policy_true and param in policy_pred:
-                true_vec.append(float(policy_true[param]))
-                pred_vec.append(float(policy_pred[param]))
-        
-        if len(true_vec) > 0:
-            # 计算余弦相似度
-            true_vec = np.array(true_vec)
-            pred_vec = np.array(pred_vec)
-            
-            # 归一化
-            true_norm = np.linalg.norm(true_vec)
-            pred_norm = np.linalg.norm(pred_vec)
-            
-            if true_norm > 0 and pred_norm > 0:
-                cosine_sim = np.dot(true_vec, pred_vec) / (true_norm * pred_norm)
-                policy_similarities.append(cosine_sim)
-            
-            # 计算归一化欧氏距离
-            # 将距离转换为相似度 (0-1之间，1表示完全相同)
-            euclidean_dist = np.linalg.norm(true_vec - pred_vec)
-            # 使用最大可能距离进行归一化（这里使用经验值）
-            max_dist = np.linalg.norm(true_vec) + np.linalg.norm(pred_vec)
-            if max_dist > 0:
-                normalized_sim = 1 - min(euclidean_dist / max_dist, 1.0)
-                # 也可以直接使用欧氏距离
-                result['euclidean_distance'] = euclidean_dist
-                result['cosine_similarity'] = cosine_sim if true_norm > 0 and pred_norm > 0 else None
+    has_ground_truth = any(r.get('policy_true') and len(r.get('policy_true', {})) > 0 for r in results)
     
-    if len(policy_similarities) > 0:
-        metrics['mean_cosine_similarity'] = np.mean(policy_similarities)
+    if has_ground_truth:
+        for result in results:
+            if result['policy_pred'] is None:
+                continue
+            
+            policy_true = result.get('policy_true', {})
+            policy_pred = result['policy_pred']
+            
+            if not policy_true or len(policy_true) == 0:
+                continue
+            
+            # 提取所有参数的向量
+            true_vec = []
+            pred_vec = []
+            for param in POLICY_PARAMS:
+                if param in policy_true and param in policy_pred:
+                    true_vec.append(float(policy_true[param]))
+                    pred_vec.append(float(policy_pred[param]))
+            
+            if len(true_vec) > 0:
+                # 计算余弦相似度
+                true_vec = np.array(true_vec)
+                pred_vec = np.array(pred_vec)
+                
+                # 归一化
+                true_norm = np.linalg.norm(true_vec)
+                pred_norm = np.linalg.norm(pred_vec)
+                
+                if true_norm > 0 and pred_norm > 0:
+                    cosine_sim = np.dot(true_vec, pred_vec) / (true_norm * pred_norm)
+                    policy_similarities.append(cosine_sim)
+                
+                # 计算归一化欧氏距离
+                # 将距离转换为相似度 (0-1之间，1表示完全相同)
+                euclidean_dist = np.linalg.norm(true_vec - pred_vec)
+                # 使用最大可能距离进行归一化（这里使用经验值）
+                max_dist = np.linalg.norm(true_vec) + np.linalg.norm(pred_vec)
+                if max_dist > 0:
+                    normalized_sim = 1 - min(euclidean_dist / max_dist, 1.0)
+                    # 也可以直接使用欧氏距离
+                    result['euclidean_distance'] = euclidean_dist
+                    result['cosine_similarity'] = cosine_sim if true_norm > 0 and pred_norm > 0 else None
+        
+        if len(policy_similarities) > 0:
+            metrics['mean_cosine_similarity'] = np.mean(policy_similarities)
+        else:
+            metrics['mean_cosine_similarity'] = None
     else:
         metrics['mean_cosine_similarity'] = None
     
@@ -589,12 +616,20 @@ def calculate_metrics(results):
         for service_type, stats in compliance_stats['service_type_stats'].items():
             if stats['total'] > 0:
                 metrics['service_type_compliance'][service_type] = stats['compliant'] / stats['total']
+        
+        # 按意图类型的合规率
+        metrics['intent_type_compliance'] = {}
+        for intent_type, stats in compliance_stats['intent_type_stats'].items():
+            if stats['total'] > 0:
+                metrics['intent_type_compliance'][intent_type] = stats['compliant'] / stats['total']
     else:
         metrics['overall_compliance_rate'] = None
         metrics['param_compliance_rates'] = {}
         metrics['service_type_compliance'] = {}
+        metrics['intent_type_compliance'] = {}
     
     metrics['compliance_stats'] = compliance_stats
+    metrics['has_ground_truth'] = has_ground_truth
     
     return metrics
 
@@ -626,6 +661,11 @@ def main():
         # 提取用户意图、服务类型和期望的policy
         user_intent, service_type, policy_true = extract_policy_from_data(item)
         
+        # 提取意图类型
+        intent_type = None
+        if "instruction" in item:
+            intent_type = item["instruction"].get("intent_type", None)
+        
         if not user_intent:
             print(f"⚠️  第 {idx} 条测试数据缺少用户意图，已跳过")
             continue
@@ -649,6 +689,7 @@ def main():
             'idx': idx,
             'user_intent': user_intent,
             'service_type': service_type,
+            'intent_type': intent_type,
             'policy_true': policy_true,
             'policy_pred': policy_pred,
             'output': output_text,
@@ -692,27 +733,37 @@ def main():
         
         if metrics.get('service_type_compliance'):
             print(f"\n各服务类型合规率:")
-            for service_type, rate in metrics['service_type_compliance'].items():
+            for service_type, rate in sorted(metrics['service_type_compliance'].items()):
                 stats = metrics['compliance_stats']['service_type_stats'][service_type]
                 print(f"  {service_type}: {rate:.4f} ({stats['compliant']}/{stats['total']})")
+        
+        if metrics.get('intent_type_compliance'):
+            print(f"\n各意图类型合规率:")
+            for intent_type, rate in sorted(metrics['intent_type_compliance'].items()):
+                stats = metrics['compliance_stats']['intent_type_stats'][intent_type]
+                print(f"  {intent_type}: {rate:.4f} ({stats['compliant']}/{stats['total']})")
     
-    print("\n各Policy参数误差指标:")
-    print("-" * 60)
-    for param in POLICY_PARAMS:
-        param_metric = metrics['param_metrics'][param]
-        if param_metric['valid_samples'] > 0:
-            print(f"\n{param}:")
-            print(f"  有效样本数: {param_metric['valid_samples']}")
-            print(f"  MAE (平均绝对误差): {param_metric['mae']:.6f}")
-            print(f"  MSE (均方误差): {param_metric['mse']:.6f}")
-            print(f"  RMSE (均方根误差): {param_metric['rmse']:.6f}")
-            if param_metric['mean_relative_error'] is not None:
-                print(f"  平均相对误差: {param_metric['mean_relative_error']:.4%}")
-            # 显示合规率（如果有）
-            if metrics.get('param_compliance_rates', {}).get(param) is not None:
-                print(f"  3GPP合规率: {metrics['param_compliance_rates'][param]:.4f}")
-        else:
-            print(f"\n{param}: 无有效样本")
+    # 仅当有真实值时才显示误差指标
+    if metrics.get('has_ground_truth'):
+        print("\n各Policy参数误差指标:")
+        print("-" * 60)
+        for param in POLICY_PARAMS:
+            param_metric = metrics['param_metrics'][param]
+            if param_metric['valid_samples'] > 0:
+                print(f"\n{param}:")
+                print(f"  有效样本数: {param_metric['valid_samples']}")
+                print(f"  MAE (平均绝对误差): {param_metric['mae']:.6f}")
+                print(f"  MSE (均方误差): {param_metric['mse']:.6f}")
+                print(f"  RMSE (均方根误差): {param_metric['rmse']:.6f}")
+                if param_metric['mean_relative_error'] is not None:
+                    print(f"  平均相对误差: {param_metric['mean_relative_error']:.4%}")
+                # 显示合规率（如果有）
+                if metrics.get('param_compliance_rates', {}).get(param) is not None:
+                    print(f"  3GPP合规率: {metrics['param_compliance_rates'][param]:.4f}")
+            else:
+                print(f"\n{param}: 无有效样本")
+    else:
+        print("\n⚠️  注意: 测试数据中没有标准答案，无法计算误差指标")
     
     print("=" * 60)
     
@@ -727,54 +778,61 @@ def main():
         print(f"  用户意图: {r['user_intent'][:80]}...")
         print(f"  模型输出: {r['output'][:200]}...")
     
-    # 显示预测误差较大的样本
-    print("\n⚠️  预测误差较大样本 (前5个):")
-    print("-" * 60)
-    
-    # 计算每个样本的总误差
-    for result in results:
-        if result['policy_pred'] is None:
-            result['total_error'] = float('inf')
-            result['euclidean_distance'] = float('inf')
-            continue
+    # 显示预测误差较大的样本（仅当有真实值时）
+    if metrics.get('has_ground_truth'):
+        print("\n⚠️  预测误差较大样本 (前5个):")
+        print("-" * 60)
         
-        total_error = 0
-        policy_true = result['policy_true']
-        policy_pred = result['policy_pred']
+        # 计算每个样本的总误差
+        for result in results:
+            if result['policy_pred'] is None:
+                result['total_error'] = float('inf')
+                result['euclidean_distance'] = float('inf')
+                continue
+            
+            total_error = 0
+            policy_true = result.get('policy_true', {})
+            policy_pred = result['policy_pred']
+            
+            if not policy_true or len(policy_true) == 0:
+                result['total_error'] = None
+                result['euclidean_distance'] = None
+                continue
+            
+            # 计算所有参数的误差
+            true_vec = []
+            pred_vec = []
+            for param in POLICY_PARAMS:
+                if param in policy_true and param in policy_pred:
+                    true_val = float(policy_true[param])
+                    pred_val = float(policy_pred[param])
+                    true_vec.append(true_val)
+                    pred_vec.append(pred_val)
+                    total_error += abs(pred_val - true_val) ** 2
+            
+            result['total_error'] = np.sqrt(total_error) if total_error > 0 else 0
+            
+            # 计算欧氏距离
+            if len(true_vec) > 0:
+                result['euclidean_distance'] = np.linalg.norm(np.array(true_vec) - np.array(pred_vec))
+            else:
+                result['euclidean_distance'] = float('inf')
         
-        # 计算所有参数的误差
-        true_vec = []
-        pred_vec = []
-        for param in POLICY_PARAMS:
-            if param in policy_true and param in policy_pred:
-                true_val = float(policy_true[param])
-                pred_val = float(policy_pred[param])
-                true_vec.append(true_val)
-                pred_vec.append(pred_val)
-                total_error += abs(pred_val - true_val) ** 2
+        # 按误差排序
+        error_samples = sorted([r for r in results if r.get('policy_pred') is not None and r.get('total_error') is not None], 
+                              key=lambda x: x.get('total_error', float('inf')), reverse=True)
         
-        result['total_error'] = np.sqrt(total_error) if total_error > 0 else 0
-        
-        # 计算欧氏距离
-        if len(true_vec) > 0:
-            result['euclidean_distance'] = np.linalg.norm(np.array(true_vec) - np.array(pred_vec))
-        else:
-            result['euclidean_distance'] = float('inf')
-    
-    # 按误差排序
-    error_samples = sorted([r for r in results if r['policy_pred'] is not None], 
-                          key=lambda x: x['total_error'], reverse=True)
-    
-    for r in error_samples[:5]:
-        print(f"\n  样本 {r['idx']} (总误差: {r['total_error']:.4f}):")
-        print(f"  服务类型: {r.get('service_type', '未知')}")
-        print(f"  用户意图: {r['user_intent'][:80]}...")
-        print(f"  真实Policy: {json.dumps(r['policy_true'], ensure_ascii=False, indent=2)}")
-        print(f"  预测Policy: {json.dumps(r['policy_pred'], ensure_ascii=False, indent=2)}")
-        if r.get('pred_compliance'):
-            all_compliant = r['pred_compliance'].get('all_compliant', False)
-            print(f"  合规性: {'✅ 完全合规' if all_compliant else '❌ 部分不合规'}")
-            print(f"  合规率: {r['pred_compliance'].get('overall_compliance_rate', 0):.2%}")
+        for r in error_samples[:5]:
+            print(f"\n  样本 {r['idx']} (总误差: {r.get('total_error', 0):.4f}):")
+            print(f"  服务类型: {r.get('service_type', '未知')}")
+            print(f"  用户意图: {r['user_intent'][:80]}...")
+            if r.get('policy_true'):
+                print(f"  真实Policy: {json.dumps(r['policy_true'], ensure_ascii=False, indent=2)}")
+            print(f"  预测Policy: {json.dumps(r['policy_pred'], ensure_ascii=False, indent=2)}")
+            if r.get('pred_compliance'):
+                all_compliant = r['pred_compliance'].get('all_compliant', False)
+                print(f"  合规性: {'✅ 完全合规' if all_compliant else '❌ 部分不合规'}")
+                print(f"  合规率: {r['pred_compliance'].get('overall_compliance_rate', 0):.2%}")
     
     # 显示不合规样本
     print("\n❌ 不合规样本分析 (前5个):")
