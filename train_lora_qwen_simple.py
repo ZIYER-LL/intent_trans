@@ -1,9 +1,16 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import os
 import sys
 import json
 import torch
 from datetime import datetime
 from pathlib import Path
+import time
+import math
+import re
+from collections import defaultdict
 
 from transformers import (
     AutoTokenizer,
@@ -23,9 +30,9 @@ from datasets import Dataset
 # =====================
 # 配置参数
 # =====================
-MODEL_DIR = "/work/2024/zhulei/intent-driven/qwen3-4b"  # 模型路径
-TRAIN_DATA_PATH = "/work/2024/zhulei/intent-driven/train_intent_qwen.json"  # 训练数据路径
-OUTPUT_DIR = "/work/2024/zhulei/intent-driven/outputs/qwen3-4b-lora-intent"  # 输出目录
+MODEL_DIR = "/work/2024/zhulei/models/qwen3-4b"  # 模型路径
+TRAIN_DATA_PATH = "/work/2024/zhulei/intent-driven/train_qwen.json"  # 训练数据路径
+OUTPUT_DIR = "/work/2024/zhulei/intent-driven/outputs/qwen3-4b-lora"  # 输出目录
 
 # LoRA参数
 LORA_R = 8  # LoRA rank
@@ -102,6 +109,137 @@ def load_dataset(data_path, tokenizer):
     dataset = Dataset.from_list(formatted_data)
     
     return dataset
+
+def _grad_norm(model, only_lora: bool = False) -> float:
+    total_sq = 0.0
+    for name, p in model.named_parameters():
+        if p.grad is None:
+            continue
+        if only_lora and ("lora" not in name.lower()):
+            continue
+        g = p.grad.detach()
+        if g.is_sparse:
+            g = g.coalesce().values()
+        gn = g.float().norm(2).item()
+        total_sq += gn * gn
+    return math.sqrt(total_sq)
+
+
+def _lora_param_norms_by_group(model, top_k: int = 12):
+    """
+    统计 LoRA 参数范数，按 layer_id + module_type 分组取 TopK，
+    避免 TensorBoard 曲线太多。
+    """
+    groups_sq = defaultdict(float)
+
+    # 兼容常见结构：model.layers.N 或 transformer.h.N
+    layer_pat = re.compile(r"(?:layers|h)\.(\d+)")
+    module_keys = ["q_proj", "k_proj", "v_proj", "o_proj",
+                   "gate_proj", "up_proj", "down_proj",
+                   "w1", "w2", "w3", "fc1", "fc2"]
+
+    for name, p in model.named_parameters():
+        lname = name.lower()
+        if "lora" not in lname:
+            continue
+
+        m = layer_pat.search(name)
+        layer_id = m.group(1) if m else "misc"
+
+        mod = "misc"
+        for k in module_keys:
+            if k in lname:
+                mod = k
+                break
+
+        gname = f"layer{layer_id}/{mod}"
+        pn = p.detach().float().norm(2).item()
+        groups_sq[gname] += pn * pn
+
+    groups = {k: math.sqrt(v) for k, v in groups_sq.items()}
+    top = dict(sorted(groups.items(), key=lambda x: x[1], reverse=True)[:top_k])
+    return top
+
+
+class LoRAMonitorSFTTrainer(SFTTrainer):
+    """
+    在训练过程中写 TensorBoard 标量：
+    - train loss + loss_ema
+    - lr
+    - grad_norm_all / grad_norm_lora
+    - lora_param_norm (TopK grouped)
+    - tokens/sec
+    - step_time + gpu_mem
+    """
+    def __init__(self, *args, ema_beta: float = 0.98, lora_top_k: int = 12, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.ema_beta = ema_beta
+        self.loss_ema = None
+        self.lora_top_k = lora_top_k
+
+    def training_step(self, model, inputs):
+        model.train()
+        inputs = self._prepare_inputs(inputs)
+
+        step_start = time.perf_counter()
+        if torch.cuda.is_available():
+            torch.cuda.reset_peak_memory_stats()
+
+        with self.compute_loss_context_manager():
+            loss = self.compute_loss(model, inputs)
+
+        if self.args.n_gpu > 1:
+            loss = loss.mean()
+
+        self.accelerator.backward(loss)
+
+        # 只在 logging_steps 这些 step 上做统计（否则会拖慢）
+        if self.is_world_process_zero() and (self.state.global_step % self.args.logging_steps == 0):
+            loss_val = float(loss.detach().float().item())
+            if self.loss_ema is None:
+                self.loss_ema = loss_val
+            else:
+                b = self.ema_beta
+                self.loss_ema = b * self.loss_ema + (1 - b) * loss_val
+
+            lr = 0.0
+            if self.optimizer is not None and len(self.optimizer.param_groups) > 0:
+                lr = float(self.optimizer.param_groups[0].get("lr", 0.0))
+
+            gn_all = _grad_norm(model, only_lora=False)
+            gn_lora = _grad_norm(model, only_lora=True)
+
+            # tokens/sec：尽量用 attention_mask 的有效 token
+            if "attention_mask" in inputs:
+                tokens = int(inputs["attention_mask"].detach().sum().item())
+            else:
+                tokens = int(inputs["input_ids"].detach().numel())
+
+            step_time = time.perf_counter() - step_start
+            tps = tokens / max(step_time, 1e-8)
+
+            mem_gb = 0.0
+            if torch.cuda.is_available():
+                mem_gb = torch.cuda.max_memory_allocated() / (1024 ** 3)
+
+            logs = {
+                "train/loss": loss_val,
+                "train/loss_ema": float(self.loss_ema),
+                "train/lr": lr,
+                "train/grad_norm_all": float(gn_all),
+                "train/grad_norm_lora": float(gn_lora),
+                "train/tokens_per_sec": float(tps),
+                "train/step_time_sec": float(step_time),
+                "train/gpu_mem_gb": float(mem_gb),
+            }
+
+            # LoRA 参数范数分组（TopK）
+            for k, v in _lora_param_norms_by_group(model, top_k=self.lora_top_k).items():
+                logs[f"train/lora_param_norm/{k}"] = float(v)
+
+            self.log(logs)
+
+        return loss.detach() / self.args.gradient_accumulation_steps
 
 # =====================
 # 主函数
@@ -198,7 +336,8 @@ def main():
     # 启用梯度检查点
     if GRADIENT_CHECKPOINTING:
         model.gradient_checkpointing_enable()
-        print("已启用梯度检查点")
+        model.enable_input_require_grads()
+        print("已启用梯度检查点 + enable_input_require_grads")
     
     # 配置LoRA
     print("配置LoRA参数...")
@@ -253,7 +392,7 @@ def main():
     # 不同版本的trl库可能有不同的参数，这里使用兼容的方式
     # 尝试使用新版本的参数（包含tokenizer）
     try:
-        trainer = SFTTrainer(
+        trainer = LoRAMonitorSFTTrainer(
             model=model,
             args=training_args,
             train_dataset=train_dataset,
@@ -264,7 +403,7 @@ def main():
     except TypeError:
         # 如果失败，尝试不使用tokenizer参数（某些版本会自动从model获取）
         try:
-            trainer = SFTTrainer(
+            trainer = LoRAMonitorSFTTrainer(
                 model=model,
                 args=training_args,
                 train_dataset=train_dataset,
@@ -273,7 +412,7 @@ def main():
             )
         except TypeError:
             # 如果还是失败，使用最简参数
-            trainer = SFTTrainer(
+            trainer = LoRAMonitorSFTTrainer(
                 model=model,
                 args=training_args,
                 train_dataset=train_dataset,
@@ -317,6 +456,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
 
 
 
