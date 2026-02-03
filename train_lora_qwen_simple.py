@@ -372,10 +372,15 @@ def main():
         "learning_rate": LEARNING_RATE,
         "fp16": FP16,
         "logging_steps": LOGGING_STEPS,
+        "logging_strategy": "steps",
         "save_steps": SAVE_STEPS,
-        "save_total_limit": 3,  # 只保留最近3个检查点
+        "save_total_limit": 3,
         "warmup_steps": WARMUP_STEPS,
-        "report_to": "tensorboard" if os.path.exists("tensorboard") else None,
+    
+        # ✅ TensorBoard
+        "report_to": ["tensorboard"],
+        "logging_dir": str(output_dir / "tb"),
+    
         "dataloader_pin_memory": True,
         "save_safetensors": True,
     }
@@ -456,6 +461,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
