@@ -176,23 +176,22 @@ class LoRAMonitorSFTTrainer(SFTTrainer):
         self.loss_ema = None
         self.lora_top_k = lora_top_k
 
-    def training_step(self, model, inputs):
+    def training_step(self, model, inputs, num_items_in_batch=None):
         model.train()
         inputs = self._prepare_inputs(inputs)
-
+    
         step_start = time.perf_counter()
         if torch.cuda.is_available():
             torch.cuda.reset_peak_memory_stats()
-
+    
         with self.compute_loss_context_manager():
             loss = self.compute_loss(model, inputs)
-
+    
         if self.args.n_gpu > 1:
             loss = loss.mean()
-
+    
         self.accelerator.backward(loss)
-
-        # 只在 logging_steps 这些 step 上做统计（否则会拖慢）
+    
         if self.is_world_process_zero() and (self.state.global_step % self.args.logging_steps == 0):
             loss_val = float(loss.detach().float().item())
             if self.loss_ema is None:
@@ -200,27 +199,26 @@ class LoRAMonitorSFTTrainer(SFTTrainer):
             else:
                 b = self.ema_beta
                 self.loss_ema = b * self.loss_ema + (1 - b) * loss_val
-
+    
             lr = 0.0
             if self.optimizer is not None and len(self.optimizer.param_groups) > 0:
                 lr = float(self.optimizer.param_groups[0].get("lr", 0.0))
-
+    
             gn_all = _grad_norm(model, only_lora=False)
             gn_lora = _grad_norm(model, only_lora=True)
-
-            # tokens/sec：尽量用 attention_mask 的有效 token
+    
             if "attention_mask" in inputs:
                 tokens = int(inputs["attention_mask"].detach().sum().item())
             else:
                 tokens = int(inputs["input_ids"].detach().numel())
-
+    
             step_time = time.perf_counter() - step_start
             tps = tokens / max(step_time, 1e-8)
-
+    
             mem_gb = 0.0
             if torch.cuda.is_available():
                 mem_gb = torch.cuda.max_memory_allocated() / (1024 ** 3)
-
+    
             logs = {
                 "train/loss": loss_val,
                 "train/loss_ema": float(self.loss_ema),
@@ -231,13 +229,12 @@ class LoRAMonitorSFTTrainer(SFTTrainer):
                 "train/step_time_sec": float(step_time),
                 "train/gpu_mem_gb": float(mem_gb),
             }
-
-            # LoRA 参数范数分组（TopK）
+    
             for k, v in _lora_param_norms_by_group(model, top_k=self.lora_top_k).items():
                 logs[f"train/lora_param_norm/{k}"] = float(v)
-
+    
             self.log(logs)
-
+    
         return loss.detach() / self.args.gradient_accumulation_steps
 
 # =====================
@@ -460,6 +457,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
