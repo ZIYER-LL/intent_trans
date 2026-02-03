@@ -62,36 +62,40 @@ GPU_ID = 2  # 指定使用的GPU ID（根据nvidia-smi选择空闲的GPU，GPU 2
 # =====================
 
 def load_dataset(data_path, tokenizer):
-    """加载数据集并格式化为文本（让SFTTrainer处理tokenization）"""
     print(f"正在加载数据集: {data_path}")
-    
-    # 检查文件是否存在
+
     if not os.path.exists(data_path):
         raise FileNotFoundError(f"训练数据文件不存在: {data_path}")
-    
-    with open(data_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    
+
+    data_path_lower = data_path.lower()
+    data = []
+
+    # ✅ 兼容 jsonl：一行一个 JSON
+    if data_path_lower.endswith(".jsonl"):
+        with open(data_path, "r", encoding="utf-8") as f:
+            for line_no, line in enumerate(f, start=1):
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    data.append(json.loads(line))
+                except json.JSONDecodeError as e:
+                    raise ValueError(f"第 {line_no} 行不是合法 JSON：{e}") from e
+    else:
+        with open(data_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
     print(f"数据集大小: {len(data)} 条")
-    
-    # 验证数据格式
+
     if not isinstance(data, list):
-        raise ValueError("数据格式错误：应该是列表格式")
-    
+        raise ValueError("数据格式错误：应该是列表格式（或 jsonl 每行一个对象）")
+
     if len(data) > 0 and "messages" not in data[0]:
-        raise ValueError("数据格式错误：每个条目应包含'messages'字段")
-    
-    # 使用tokenizer的apply_chat_template格式化对话为文本
-    # SFTTrainer会自动处理tokenization，所以这里只格式化，不tokenize
+        raise ValueError("数据格式错误：每个条目应包含 'messages' 字段")
+
     formatted_data = []
     for idx, item in enumerate(data):
         try:
-            if "messages" not in item:
-                print(f"警告：第 {idx+1} 条数据缺少'messages'字段，已跳过")
-                continue
-            
-            # 使用apply_chat_template将messages格式化为文本
-            # tokenize=False 表示只格式化，不进行tokenization
             text = tokenizer.apply_chat_template(
                 item["messages"],
                 tokenize=False,
@@ -101,14 +105,9 @@ def load_dataset(data_path, tokenizer):
         except Exception as e:
             print(f"警告：处理第 {idx+1} 条数据时出错: {e}，已跳过")
             continue
-    
+
     print(f"成功处理 {len(formatted_data)} 条数据")
-    
-    # 转换为Dataset格式，字段名为"text"
-    # SFTTrainer会读取这个"text"字段并进行tokenization
-    dataset = Dataset.from_list(formatted_data)
-    
-    return dataset
+    return Dataset.from_list(formatted_data)
 
 def _grad_norm(model, only_lora: bool = False) -> float:
     total_sq = 0.0
@@ -461,6 +460,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
