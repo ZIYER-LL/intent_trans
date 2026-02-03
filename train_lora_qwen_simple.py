@@ -30,8 +30,8 @@ from datasets import Dataset
 # =====================
 # 配置参数
 # =====================
-MODEL_DIR = "/work/2024/zhulei/models/qwen3-4b"  # 模型路径
-TRAIN_DATA_PATH = "/work/2024/zhulei/intent-driven/train_qwen.json"  # 训练数据路径
+MODEL_DIR = "/work/2024/zhulei/intent-driven/qwen3-4b"  # 模型路径
+TRAIN_DATA_PATH = "/work/2024/zhulei/intent-driven/train_qwen3.jsonl"  # 训练数据路径
 OUTPUT_DIR = "/work/2024/zhulei/intent-driven/outputs/qwen3-4b-lora"  # 输出目录
 
 # LoRA参数
@@ -461,6 +461,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
