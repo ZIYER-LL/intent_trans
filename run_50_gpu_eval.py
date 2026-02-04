@@ -137,7 +137,22 @@ def _extract_balanced_braces(text: str, start: int) -> Optional[str]:
                 if depth == 0:
                     return text[start : i + 1]
     return None
-
+def trim_to_intent_json_only(text: str) -> str:
+    """
+    只保留从 {"intent": 开始的 JSON；优先截取括号平衡后的完整 JSON。
+    找不到则返回 strip 后原文（便于排查）。
+    """
+    if not isinstance(text, str):
+        return text
+    m = _INTENT_JSON_START_RE.search(text)
+    if not m:
+        return text.strip()
+    start = m.start()
+    blob = _extract_balanced_braces(text, start)
+    if blob:
+        return blob.strip()
+    # 如果括号没配平（极少数），至少从 intent 开始截到末尾
+    return text[start:].strip()
 def extract_json_by_intent(s: Any) -> Optional[Dict[str, Any]]:
     """
     1) 优先找以 {"intent": 开头的 JSON（允许前面有 <think>、assistant 等垃圾）
@@ -559,8 +574,8 @@ def batched_generate(tokenizer, model, user_texts: List[str], batch_size: int, m
         if hasattr(model, "device"):
             enc = {k: v.to(model.device) for k, v in enc.items()}
 
-        # ✅ 关键：left padding 下，新增 tokens 从“padded input 长度”开始
-        input_len = enc["input_ids"].shape[1]
+        # ✅ 每条样本真实 prompt 长度（left padding 下必须用这个）
+        prompt_lens = enc["attention_mask"].sum(dim=1)  # (batch,)
 
         with torch.inference_mode():
             gen = model.generate(
@@ -575,8 +590,13 @@ def batched_generate(tokenizer, model, user_texts: List[str], batch_size: int, m
             )
 
         for j in range(gen.size(0)):
-            new_tokens = gen[j, input_len:]
+            start = int(prompt_lens[j].item())
+            new_tokens = gen[j, start:]
             text = tokenizer.decode(new_tokens, skip_special_tokens=True)
+
+            # ✅ 关键：只保留从 {"intent": 开始的那段（最好直接变成纯 JSON）
+            text = trim_to_intent_json_only(text)
+
             outs.append(text)
 
     return outs
