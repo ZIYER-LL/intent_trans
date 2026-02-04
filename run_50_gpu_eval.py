@@ -365,7 +365,7 @@ def load_model(base_model: str, lora_dir: str):
     from peft import PeftModel
 
     if torch.cuda.is_available():
-        torch.backends.cuda.matmul.allow_tf32 = True  # 提速（对大模型推理常见有效）
+        torch.backends.cuda.matmul.allow_tf32 = True
         dtype = torch.bfloat16 if torch.cuda.get_device_capability(0)[0] >= 8 else torch.float16
         device_map = "auto"
     else:
@@ -373,8 +373,13 @@ def load_model(base_model: str, lora_dir: str):
         device_map = None
 
     tok = AutoTokenizer.from_pretrained(base_model, trust_remote_code=True)
+
+    # ✅ 关键修复：decoder-only 模型生成时使用 left padding
+    tok.padding_side = "left"
+
+    # ✅ pad_token：没有就用 eos 兜底
     if tok.pad_token_id is None:
-        tok.pad_token_id = tok.eos_token_id
+        tok.pad_token = tok.eos_token
 
     model = AutoModelForCausalLM.from_pretrained(
         base_model,
@@ -388,7 +393,6 @@ def load_model(base_model: str, lora_dir: str):
     model.eval()
 
     return tok, model
-
 def build_prompt(tokenizer, user_text: str) -> str:
     msgs = [
         {"role": "system", "content": SYSTEM_PROMPT},
