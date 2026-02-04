@@ -6,6 +6,7 @@ import re
 from collections import Counter
 from typing import Any, Dict, List, Optional, Tuple
 from tqdm import tqdm
+from transformers import StoppingCriteria, StoppingCriteriaList
 
 DEFAULT_BASE_MODEL = "/work/2024/zhulei/intent-driven/qwen3-4b"
 DEFAULT_LORA_DIR   = "/work/2024/zhulei/intent-driven/outputs/qwen3-4b-lora"
@@ -44,14 +45,69 @@ HINT_FIELDS = ["suggested_upf_type", "qos_class", "isolation_level"]
 
 EPS = 1e-9
 
-SYSTEM_PROMPT = """你是网络意图转译器。请把用户请求转译为严格 JSON。
-要求：
-1) 只输出 JSON（不要解释、不要 markdown、不要多余字符）。
-2) 顶层必须包含：intent, confidence, parameters, errors。
-3) parameters 必须包含：location{city,district}, service_type, sla_requirements(包含所有字段，未提及写 null), network_config_hints。
-4) operator 只能用 >= <= =，unit 使用标准单位（Mbps/Gbps/ms/%/count 等）。
-"""
+SYSTEM_PROMPT = """你是网络意图转译器，只输出一个严格 JSON 对象，禁止输出任何额外字符（包括 <think>、assistant、解释、markdown、前后缀）。
 
+必须满足：
+- 顶层字段：intent, confidence, parameters, errors
+- intent ∈ {QUERY_SUBNET, CREATE_SUBNET, MODIFY_SUBNET, DELETE_SUBNET}
+- confidence 为 0~1 的小数
+- parameters 必须包含：
+  - location: {city: string|null, district: string|null}
+  - service_type: 必须是以下之一：
+    {IOT_SENSOR, REALTIME_VIDEO, STREAMING_VIDEO, STREAMING_LIVE, INTERNET_ACCESS, REALTIME_XR_GAMING, URLLC_CONTROL, FILE_TRANSFER, REALTIME_VOICE_CALL}
+  - sla_requirements: 必须包含以下所有字段，每个字段必须是对象 {value, unit, operator}：
+    - bandwidth_down, bandwidth_up, max_latency, max_jitter, min_reliability, connected_devices
+    - 未提及则 value/unit/operator 全为 null
+  - network_config_hints: {suggested_upf_type, qos_class, isolation_level}（未提及填 null）
+- errors: list（没有错误输出 []）
+- operator 只能是 \">=\", \"<=\", \"=\"；unit 只能用标准单位（Mbps/Gbps/ms/%/count）
+输出必须以 { 开头，以 } 结尾。"""
+class JsonBalancedStop(StoppingCriteria):
+    """
+    当 batch 中每个样本都已经生成出一个括号平衡的 {"intent": ... } JSON 后停止。
+    注意：StoppingCriteria 会多次被调用，这里用 decode 做启发式判断，够用于“只输出一个 JSON”的任务。
+    """
+    def __init__(self, tokenizer):
+        super().__init__()
+        self.tok = tokenizer
+
+    def _balanced_done(self, text: str) -> bool:
+        m = re.search(r'\{\s*"intent"\s*:', text)
+        if not m:
+            return False
+        blob = text[m.start():]
+        depth = 0
+        in_str = False
+        esc = False
+        for ch in blob:
+            if in_str:
+                if esc:
+                    esc = False
+                elif ch == "\\":
+                    esc = True
+                elif ch == '"':
+                    in_str = False
+                continue
+            else:
+                if ch == '"':
+                    in_str = True
+                    continue
+                if ch == "{":
+                    depth += 1
+                elif ch == "}":
+                    depth -= 1
+                    if depth == 0:
+                        return True
+        return False
+
+    def __call__(self, input_ids, scores, **kwargs):
+        # input_ids: (batch, seq)
+        # 只有当 batch 内所有样本都完成 JSON 时才停止
+        for i in range(input_ids.shape[0]):
+            text = self.tok.decode(input_ids[i], skip_special_tokens=True)
+            if not self._balanced_done(text):
+                return False
+        return True
 # ========== JSON 抽取 ==========
 _INTENT_JSON_START_RE = re.compile(r'\{\s*"intent"\s*:', re.MULTILINE)
 
@@ -114,7 +170,7 @@ def extract_json_by_intent(s: Any) -> Optional[Dict[str, Any]]:
         return json.loads(m2.group(0))
     except Exception:
         return None
-
+extract_first_json_obj = extract_json_by_intent
 # ========== 读 jsonl ==========
 def load_jsonl(path: str, limit: Optional[int] = None) -> List[Dict[str, Any]]:
     rows = []
@@ -489,6 +545,8 @@ def batched_generate(tokenizer, model, user_texts: List[str], batch_size: int, m
     total = len(user_texts)
     n_batches = (total + batch_size - 1) // batch_size
 
+    stopping = StoppingCriteriaList([JsonBalancedStop(tokenizer)])
+
     for b in tqdm(range(n_batches), desc="Inference (batches)", unit="batch"):
         i = b * batch_size
         batch = user_texts[i:i+batch_size]
@@ -498,8 +556,8 @@ def batched_generate(tokenizer, model, user_texts: List[str], batch_size: int, m
         if hasattr(model, "device"):
             enc = {k: v.to(model.device) for k, v in enc.items()}
 
-        # 每条样本的真实 prompt 长度（left padding 下也正确）
-        prompt_lens = enc["attention_mask"].sum(dim=1).tolist()
+        # ✅ 关键：left padding 下，新增 tokens 从“padded input 长度”开始
+        input_len = enc["input_ids"].shape[1]
 
         with torch.inference_mode():
             gen = model.generate(
@@ -510,10 +568,11 @@ def batched_generate(tokenizer, model, user_texts: List[str], batch_size: int, m
                 use_cache=True,
                 pad_token_id=tokenizer.pad_token_id,
                 eos_token_id=tokenizer.eos_token_id,
+                stopping_criteria=stopping,
             )
 
         for j in range(gen.size(0)):
-            new_tokens = gen[j, int(prompt_lens[j]):]
+            new_tokens = gen[j, input_len:]
             text = tokenizer.decode(new_tokens, skip_special_tokens=True)
             outs.append(text)
 
