@@ -5,6 +5,7 @@ import os
 import re
 from collections import Counter
 from typing import Any, Dict, List, Optional, Tuple
+from tqdm import tqdm
 
 DEFAULT_BASE_MODEL = "/work/2024/zhulei/intent-driven/qwen3-4b"
 DEFAULT_LORA_DIR   = "/work/2024/zhulei/intent-driven/outputs/qwen3-4b-lora"
@@ -364,20 +365,19 @@ def load_model(base_model: str, lora_dir: str):
     from transformers import AutoModelForCausalLM, AutoTokenizer
     from peft import PeftModel
 
-    if torch.cuda.is_available():
+    use_cuda = torch.cuda.is_available()
+    if use_cuda:
         torch.backends.cuda.matmul.allow_tf32 = True
-        dtype = torch.bfloat16 if torch.cuda.get_device_capability(0)[0] >= 8 else torch.float16
+        major, _ = torch.cuda.get_device_capability(0)
+        dtype = torch.bfloat16 if major >= 8 else torch.float16
         device_map = "auto"
     else:
         dtype = torch.float32
         device_map = None
 
     tok = AutoTokenizer.from_pretrained(base_model, trust_remote_code=True)
-
-    # ✅ 关键修复：decoder-only 模型生成时使用 left padding
+    # ✅ decoder-only 左 padding（避免 right-padding warning）
     tok.padding_side = "left"
-
-    # ✅ pad_token：没有就用 eos 兜底
     if tok.pad_token_id is None:
         tok.pad_token = tok.eos_token
 
@@ -386,11 +386,27 @@ def load_model(base_model: str, lora_dir: str):
         torch_dtype=dtype,
         device_map=device_map,
         trust_remote_code=True,
-    )
-    model.eval()
+    ).eval()
 
-    model = PeftModel.from_pretrained(model, lora_dir)
-    model.eval()
+    model = PeftModel.from_pretrained(model, lora_dir).eval()
+
+    # ========= GPU 日志 =========
+    print("\n========== DEVICE INFO ==========")
+    print(f"CUDA available: {use_cuda}")
+    print(f"torch dtype: {dtype}")
+    if use_cuda:
+        n = torch.cuda.device_count()
+        print(f"GPU count: {n}")
+        for i in range(n):
+            name = torch.cuda.get_device_name(i)
+            mem_gb = torch.cuda.get_device_properties(i).total_memory / (1024**3)
+            print(f"  GPU[{i}] {name} | total {mem_gb:.1f} GB")
+        # 当前进程的显存占用（注意：模型可能分布在多卡；这里只打印各卡当前已分配/保留）
+        for i in range(n):
+            alloc = torch.cuda.memory_allocated(i) / (1024**3)
+            reserv = torch.cuda.memory_reserved(i) / (1024**3)
+            print(f"  GPU[{i}] mem allocated={alloc:.2f} GB, reserved={reserv:.2f} GB")
+    print("================================\n")
 
     return tok, model
 def build_prompt(tokenizer, user_text: str) -> str:
@@ -404,7 +420,11 @@ def batched_generate(tokenizer, model, user_texts: List[str], batch_size: int, m
     import torch
 
     outs: List[str] = []
-    for i in range(0, len(user_texts), batch_size):
+    total = len(user_texts)
+    n_batches = (total + batch_size - 1) // batch_size
+
+    for b in tqdm(range(n_batches), desc="Inference (batches)", unit="batch"):
+        i = b * batch_size
         batch = user_texts[i:i+batch_size]
         prompts = [build_prompt(tokenizer, t) for t in batch]
         enc = tokenizer(prompts, return_tensors="pt", padding=True, truncation=True)
@@ -412,14 +432,14 @@ def batched_generate(tokenizer, model, user_texts: List[str], batch_size: int, m
         if hasattr(model, "device"):
             enc = {k: v.to(model.device) for k, v in enc.items()}
 
-        # 每条样本的真实 prompt 长度（避免 padding 影响切片）
+        # 每条样本的真实 prompt 长度（left padding 下也正确）
         prompt_lens = enc["attention_mask"].sum(dim=1).tolist()
 
         with torch.inference_mode():
             gen = model.generate(
                 **enc,
                 max_new_tokens=max_new_tokens,
-                do_sample=False,      # 评测建议先关采样，稳定
+                do_sample=False,
                 temperature=0.0,
                 use_cache=True,
                 pad_token_id=tokenizer.pad_token_id,
@@ -474,7 +494,12 @@ def main():
     em_correct = []
 
     with open(args.save_pred, "w", encoding="utf-8") as f:
-        for idx, (text, gold_raw, pred_raw) in enumerate(zip(user_texts, gold_raws, pred_raw_texts)):
+       for idx, (text, gold_raw, pred_raw) in tqdm(
+            enumerate(zip(user_texts, gold_raws, pred_raw_texts)),
+            total=len(user_texts),
+            desc="Eval+Save (samples)",
+            unit="sample",
+        ):
             _, gold, gold_issues = validate_and_canonicalize(gold_raw)
             for it in gold_issues:
                 issues[f"gold_{it}"] += 1
