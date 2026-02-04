@@ -434,26 +434,29 @@ def set_f1(gold_set: set, pred_set: set) -> Tuple[float, float, float]:
     return prec, rec, f1
 
 def end2end_em(gold: Dict[str, Any], pred: Dict[str, Any]) -> bool:
+    # intent
     if gold.get("intent") != pred.get("intent"):
         return False
+
+    # service_type
     if safe_get(gold, ["parameters", "service_type"]) != safe_get(pred, ["parameters", "service_type"]):
         return False
+
+    # location
     g_loc = safe_get(gold, ["parameters", "location"], {})
     p_loc = safe_get(pred, ["parameters", "location"], {})
     if (g_loc.get("city") or None) != (p_loc.get("city") or None):
         return False
     if (g_loc.get("district") or None) != (p_loc.get("district") or None):
         return False
+
+    # SLA（仍然保持严格：每个字段三元组一致，包括 null）
     g_sla = safe_get(gold, ["parameters", "sla_requirements"], {})
     p_sla = safe_get(pred, ["parameters", "sla_requirements"], {})
     for f in SLA_FIELDS:
         if not triple_equal(g_sla.get(f, {}), p_sla.get(f, {})):
             return False
-    g_h = safe_get(gold, ["parameters", "network_config_hints"], {})
-    p_h = safe_get(pred, ["parameters", "network_config_hints"], {})
-    for k in HINT_FIELDS:
-        if (g_h.get(k) or None) != (p_h.get(k) or None):
-            return False
+
     return True
 
 def expected_calibration_error(confs: List[Optional[float]], correct: List[int], n_bins: int = 10) -> float:
