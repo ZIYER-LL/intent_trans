@@ -53,20 +53,65 @@ SYSTEM_PROMPT = """你是网络意图转译器。请把用户请求转译为严�
 """
 
 # ========== JSON 抽取 ==========
-_JSON_OBJ_RE = re.compile(r"\{.*\}", re.DOTALL)
+_INTENT_JSON_START_RE = re.compile(r'\{\s*"intent"\s*:', re.MULTILINE)
 
-def extract_first_json_obj(s: Any) -> Optional[Dict[str, Any]]:
+def _extract_balanced_braces(text: str, start: int) -> Optional[str]:
+    """从 start 位置的 '{' 开始，找到括号平衡的 JSON 子串"""
+    depth = 0
+    in_str = False
+    esc = False
+    for i in range(start, len(text)):
+        ch = text[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif ch == "\\":
+                esc = True
+            elif ch == '"':
+                in_str = False
+            continue
+        else:
+            if ch == '"':
+                in_str = True
+                continue
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    return text[start : i + 1]
+    return None
+
+def extract_json_by_intent(s: Any) -> Optional[Dict[str, Any]]:
+    """
+    1) 优先找以 {"intent": 开头的 JSON（允许前面有 <think>、assistant 等垃圾）
+    2) 用括号匹配截到 JSON 结束
+    3) 失败再 fallback 到 “整段找 {.*}”
+    """
     if s is None:
         return None
     if isinstance(s, dict):
         return s
     if not isinstance(s, str):
         return None
-    m = _JSON_OBJ_RE.search(s)
-    if not m:
+
+    # 优先：找 intent 起始
+    m = _INTENT_JSON_START_RE.search(s)
+    if m:
+        start = m.start()
+        blob = _extract_balanced_braces(s, start)
+        if blob:
+            try:
+                return json.loads(blob)
+            except Exception:
+                pass
+
+    # fallback：整段第一个大括号对象
+    m2 = re.search(r"\{.*\}", s, re.DOTALL)
+    if not m2:
         return None
     try:
-        return json.loads(m.group(0))
+        return json.loads(m2.group(0))
     except Exception:
         return None
 
@@ -222,9 +267,30 @@ def validate_and_canonicalize(obj: Dict[str, Any]) -> Tuple[bool, Dict[str, Any]
 
     canon_sla = {}
     for f in SLA_FIELDS:
-        t = sla.get(f, {"value": None, "unit": None, "operator": None})
-        if not isinstance(t, dict):
+        t = sla.get(f, None)
+        
+        # ✅ 允许 null：视为全空三元组
+        if t is None:
             t = {"value": None, "unit": None, "operator": None}
+        
+        # ✅ 允许纯数字：包成三元组（不猜 operator，先留 None）
+        elif isinstance(t, (int, float)):
+            default_unit = "count" if f == "connected_devices" else None
+            t = {"value": t, "unit": default_unit, "operator": None}
+        
+        # ✅ 允许 dict：正常
+        elif isinstance(t, dict):
+            # 兼容 dict 里缺 key 的情况
+            t = {
+                "value": t.get("value", None),
+                "unit": t.get("unit", None),
+                "operator": t.get("operator", None),
+            }
+        
+        # ✅ 其他乱七八糟类型：当成空
+        else:
+            t = {"value": None, "unit": None, "operator": None}
+        
         canon_sla[f] = normalize_sla_field(f, t)
 
     hints = params.get("network_config_hints", {})
@@ -504,7 +570,7 @@ def main():
             for it in gold_issues:
                 issues[f"gold_{it}"] += 1
 
-            pred_obj = extract_first_json_obj(pred_raw)
+            pred_obj = extract_json_by_intent(pred_raw)
             if pred_obj is None:
                 issues["parse_fail"] += 1
                 y_int_true.append(gold.get("intent"))
