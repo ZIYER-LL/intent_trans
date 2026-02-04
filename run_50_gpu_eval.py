@@ -17,7 +17,7 @@ INTENTS = ["QUERY_SUBNET", "CREATE_SUBNET", "MODIFY_SUBNET", "DELETE_SUBNET"]
 
 # 你现在先看效果，不强制校验 service_type 是否在 9 类里（避免你没填全时误判）
 # 真正做完整评测时，可以把你的 9 类填到这里并开启严格模式
-STRICT_SERVICE_TYPE = False
+STRICT_SERVICE_TYPE = True
 SERVICE_TYPES_9 = [
     "IOT_SENSOR",
     "REALTIME_VIDEO",
